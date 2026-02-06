@@ -1,15 +1,17 @@
 ﻿:root {
-  --cream: #fff7f9;
-  --peach: #f7d7de;
-  --espresso: #3a1f2b;
-  --cocoa: #6a3e4a;
-  --rose: #f2a9be;
-  --sage: #e7c8d3;
-  --accent: #e26b8b;
-  --accent-dark: #c35172;
+  --cream: #fff8fb;
+  --peach: #f6d7de;
+  --espresso: #2f1a22;
+  --cocoa: #5d3846;
+  --rose: #f1a8bd;
+  --sage: #ead0d8;
+  --accent: #d85f80;
+  --accent-dark: #b24b69;
   --white: #ffffff;
-  --shadow: 0 18px 45px rgba(77, 36, 49, 0.18);
-  --radius: 22px;
+  --shadow: 0 22px 60px rgba(54, 27, 38, 0.18);
+  --shadow-soft: 0 10px 30px rgba(54, 27, 38, 0.12);
+  --radius: 24px;
+  --border: 1px solid rgba(88, 46, 60, 0.12);
 }
 
 * {
@@ -21,8 +23,8 @@
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255, 236, 245, 0.9) 0%, rgba(255, 240, 248, 0.8) 40%, rgba(254, 233, 240, 0.85) 100%),
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.6) 0 2px, transparent 3px);
+    radial-gradient(circle at 10% 0%, rgba(255, 239, 247, 0.95) 0%, rgba(255, 244, 250, 0.9) 45%, rgba(254, 232, 241, 0.9) 100%),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45) 0 2px, transparent 3px);
   background-size: auto, 24px 24px;
   color: var(--espresso);
   line-height: 1.6;
@@ -64,12 +66,13 @@ img {
   border-radius: 50%;
   opacity: 0.25;
   z-index: 0;
+  filter: blur(2px);
 }
 
 .site-header::before {
   width: 420px;
   height: 420px;
-  background: #ffdbe6;
+  background: #ffe1ea;
   top: -160px;
   right: -120px;
 }
@@ -77,7 +80,7 @@ img {
 .site-header::after {
   width: 320px;
   height: 320px;
-  background: #f4c9d8;
+  background: #f5cddc;
   bottom: -160px;
   left: -120px;
 }
@@ -98,8 +101,9 @@ img {
 }
 
 .brand-mark {
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .brand-sub {
@@ -126,7 +130,7 @@ img {
   background: var(--white);
   padding: 8px 12px;
   border-radius: 8px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-soft);
   font-size: 1.1rem;
 }
 
@@ -160,7 +164,7 @@ img {
 
 .hero h1 {
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-size: clamp(2.4rem, 4vw, 3.7rem);
   line-height: 1.1;
   margin-bottom: 16px;
 }
@@ -188,26 +192,27 @@ img {
   gap: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-height: 44px;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary {
   background: var(--accent);
   color: var(--white);
-  box-shadow: 0 14px 28px rgba(226, 107, 139, 0.28);
+  box-shadow: 0 16px 32px rgba(216, 95, 128, 0.32);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 30px rgba(226, 107, 139, 0.36);
+  box-shadow: 0 22px 36px rgba(216, 95, 128, 0.4);
 }
 
 .btn-ghost {
-  border: 1px solid rgba(92, 59, 48, 0.2);
+  border: var(--border);
   color: var(--cocoa);
 }
 
 .btn-outline {
-  border: 1px solid rgba(92, 59, 48, 0.4);
+  border: 1px solid rgba(92, 59, 48, 0.35);
   padding: 10px 18px;
 }
 
@@ -218,10 +223,11 @@ img {
 }
 
 .hero-meta div {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   padding: 14px 16px;
   border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(54, 33, 24, 0.1);
+  box-shadow: var(--shadow-soft);
+  border: var(--border);
 }
 
 .meta-title {
@@ -241,6 +247,7 @@ img {
   padding: 16px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: var(--border);
 }
 
 .cake-card-info {
@@ -258,20 +265,21 @@ img {
 }
 
 .hero-badges span {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   padding: 8px 14px;
   border-radius: 999px;
   font-size: 0.85rem;
   color: var(--cocoa);
-  border: 1px solid rgba(92, 59, 48, 0.12);
+  border: var(--border);
 }
 
 .highlight-strip {
   margin-top: 50px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(6px);
   border-radius: 26px;
   box-shadow: var(--shadow);
+  border: var(--border);
   padding: 24px clamp(18px, 4vw, 36px);
   display: grid;
   gap: 18px;
@@ -288,7 +296,7 @@ img {
 }
 
 .section-alt {
-  background: #ffeef4;
+  background: linear-gradient(180deg, rgba(255, 236, 245, 0.65), rgba(255, 246, 250, 0.95));
 }
 
 .section-head {
@@ -336,8 +344,8 @@ img {
 .catalog-chips span {
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(226, 107, 139, 0.35);
+  background: rgba(255, 255, 255, 0.85);
+  border: var(--border);
   color: var(--accent-dark);
   font-weight: 600;
   font-size: 0.85rem;
@@ -348,6 +356,7 @@ img {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
+  border: var(--border);
   display: flex;
   flex-direction: column;
 }
@@ -355,7 +364,7 @@ img {
 .catalog-card:hover {
   transform: translateY(-6px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 24px 50px rgba(77, 36, 49, 0.22);
+  box-shadow: 0 28px 55px rgba(77, 36, 49, 0.24);
 }
 
 .catalog-card img {
@@ -388,6 +397,7 @@ img {
   padding: 22px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: var(--border);
 }
 
 .step-num {
@@ -404,9 +414,11 @@ img {
 }
 
 .order-notes div {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.75);
   padding: 18px;
   border-radius: 18px;
+  border: var(--border);
+  box-shadow: var(--shadow-soft);
 }
 
 .two-col {
@@ -428,6 +440,7 @@ img {
   padding: 18px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: var(--border);
 }
 
 .gallery-grid {
@@ -458,8 +471,10 @@ img {
   padding: 18px;
   border-radius: 16px;
   box-shadow: var(--shadow);
+  border: var(--border);
   font-style: italic;
 }
+
 
 .contact-grid {
   display: grid;
@@ -473,6 +488,7 @@ img {
   border: none;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: var(--border);
 }
 
 .faq-list {
@@ -488,6 +504,7 @@ img {
   padding: 18px 20px;
   border-radius: 16px;
   box-shadow: var(--shadow);
+  border: var(--border);
   display: flex;
   justify-content: space-between;
   font-weight: 600;
@@ -512,9 +529,10 @@ img {
 .cta-banner {
   margin: 40px 6vw 0;
   padding: 36px clamp(22px, 5vw, 48px);
-  background: linear-gradient(120deg, rgba(255, 213, 226, 0.9), rgba(255, 245, 249, 0.95));
+  background: linear-gradient(120deg, rgba(255, 220, 232, 0.95), rgba(255, 246, 251, 0.98));
   border-radius: 28px;
   box-shadow: var(--shadow);
+  border: var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -535,7 +553,7 @@ img {
 
 .footer {
   padding: 60px 6vw 40px;
-  background: #3a1f2b;
+  background: #2a151d;
   color: #fdeff4;
   display: grid;
   gap: 20px;
