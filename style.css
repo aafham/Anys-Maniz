@@ -186,6 +186,7 @@ img {
   justify-content: center;
   gap: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
 }
 
 .btn-primary {
@@ -556,24 +557,44 @@ img {
 
 @media (max-width: 900px) {
   .nav {
-    align-items: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    order: 1;
+  }
+
+  .nav-toggle {
+    order: 2;
+    margin-left: auto;
   }
 
   .nav-links {
-    display: none;
+    display: flex;
     flex-direction: column;
     background: var(--white);
     padding: 16px;
     border-radius: 16px;
     box-shadow: var(--shadow);
-    position: absolute;
-    top: 70px;
-    right: 0;
-    min-width: 200px;
+    position: static;
+    width: 100%;
+    margin-top: 12px;
+    gap: 10px;
+    order: 3;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
   }
 
   .nav-links.open {
-    display: flex;
+    max-height: 420px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-toggle {
@@ -595,23 +616,53 @@ img {
   .cta-actions .btn {
     flex: 1;
   }
+
+  .card-foot {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 600px) {
+  .btn {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+  }
+
+  .site-header {
+    padding: 24px 6vw 56px;
+  }
+
+  .hero {
+    gap: 30px;
+  }
+
+  .hero-visual {
+    order: 2;
+  }
+
+  .hero-copy {
+    order: 1;
+  }
+
   .hero-meta {
     grid-template-columns: 1fr;
   }
 
   .section {
-    padding: 60px 6vw;
+    padding: 56px 6vw;
   }
 
   .cta-banner {
     margin: 20px 6vw 0;
+    padding: 28px 22px;
   }
 
   .brand-mark {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .nav-links {
@@ -634,6 +685,43 @@ img {
 
   .map iframe {
     min-height: 240px;
+  }
+
+  .highlight-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head {
+    align-items: flex-start;
+  }
+
+  .section-head.centered {
+    text-align: left;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-links {
+    top: 58px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 7vw, 2.6rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn,
+  .footer-actions .btn,
+  .cta-actions .btn {
+    width: 100%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
 
