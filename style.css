@@ -26,6 +26,7 @@ body {
   background-size: auto, 24px 24px;
   color: var(--espresso);
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
 .reveal {
@@ -555,6 +556,36 @@ img {
   color: rgba(253, 239, 244, 0.7);
 }
 
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 1.2rem;
+  box-shadow: 0 14px 30px rgba(226, 107, 139, 0.35);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 20;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+}
+
 @media (max-width: 900px) {
   .nav {
     align-items: center;
@@ -604,7 +635,7 @@ img {
   }
 
   .hero {
-    margin-top: 36px;
+    margin-top: 16px;
   }
 
   .hero-actions,
@@ -635,7 +666,7 @@ img {
   }
 
   .site-header {
-    padding: 24px 6vw 56px;
+    padding: 18px 6vw 52px;
   }
 
   .hero {
