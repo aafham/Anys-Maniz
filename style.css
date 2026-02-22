@@ -3098,3 +3098,9 @@ body {
 .testi-meta > div > span {
   line-height: 1.35;
 }
+
+
+/* Footer single-column cleanup v16 */
+.footer {
+  justify-content: flex-start;
+}
