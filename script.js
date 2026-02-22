@@ -69,10 +69,69 @@ loadGa4();
 
 const orderForm = document.getElementById("orderForm");
 const orderFormStatus = document.getElementById("orderFormStatus");
+const orderProgressLabel = document.getElementById("orderProgressLabel");
+const orderProgressCount = document.getElementById("orderProgressCount");
+const orderProgressBar = document.getElementById("orderProgressBar");
+
+const updateOrderProgress = () => {
+  if (!orderForm) return;
+  const requiredFields = Array.from(orderForm.querySelectorAll("input[required], select[required], textarea[required]"));
+  if (!requiredFields.length) return;
+
+  const filledCount = requiredFields.filter((field) => String(field.value || "").trim() !== "").length;
+  const totalCount = requiredFields.length;
+  const ratio = Math.round((filledCount / totalCount) * 100);
+
+  if (orderProgressCount) {
+    orderProgressCount.textContent = `${filledCount}/${totalCount} lengkap`;
+  }
+
+  if (orderProgressBar) {
+    orderProgressBar.style.width = `${ratio}%`;
+  }
+
+  if (orderProgressLabel) {
+    orderProgressLabel.textContent =
+      filledCount >= totalCount
+        ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
+        : "Langkah 1/2: Isi maklumat wajib";
+  }
+};
 
 if (orderForm) {
+  const requiredFields = orderForm.querySelectorAll("input[required], select[required], textarea[required]");
+  requiredFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      field.classList.remove("field-error");
+      updateOrderProgress();
+    });
+    field.addEventListener("change", () => {
+      field.classList.remove("field-error");
+      updateOrderProgress();
+    });
+  });
+
+  updateOrderProgress();
+
   orderForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    let hasError = false;
+    requiredFields.forEach((field) => {
+      const isEmpty = String(field.value || "").trim() === "";
+      field.classList.toggle("field-error", isEmpty);
+      if (isEmpty) hasError = true;
+    });
+
+    if (hasError) {
+      if (orderFormStatus) {
+        orderFormStatus.textContent = "Sila lengkapkan maklumat wajib dulu.";
+        orderFormStatus.classList.add("show", "error");
+        orderFormStatus.classList.remove("success");
+      }
+      updateOrderProgress();
+      return;
+    }
 
     const data = new FormData(orderForm);
     const name = data.get("name");
@@ -89,11 +148,9 @@ if (orderForm) {
       (notes ? `\nNota: ${notes}` : "");
 
     if (orderFormStatus) {
-      orderFormStatus.textContent = "Membuka WhatsApp untuk hantar tempahan anda...";
-      orderFormStatus.classList.add("show");
-      window.setTimeout(() => {
-        orderFormStatus.classList.remove("show");
-      }, 3500);
+      orderFormStatus.textContent = "Berjaya! Kami buka WhatsApp sekarang...";
+      orderFormStatus.classList.add("show", "success");
+      orderFormStatus.classList.remove("error");
     }
 
     trackEvent("order_form_submit", {
@@ -101,7 +158,19 @@ if (orderForm) {
       budget: String(budget || "")
     });
 
-    window.open(buildWhatsAppUrl(message), "_blank");
+    const waUrl = buildWhatsAppUrl(message);
+    const pendingWindow = window.open("about:blank", "_blank");
+    window.setTimeout(() => {
+      if (pendingWindow && !pendingWindow.closed) {
+        pendingWindow.location.href = waUrl;
+      } else {
+        window.open(waUrl, "_blank");
+      }
+
+      if (orderFormStatus) {
+        orderFormStatus.classList.remove("show");
+      }
+    }, 550);
   });
 }
 

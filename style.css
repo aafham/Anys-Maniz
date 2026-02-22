@@ -3739,3 +3739,68 @@ body {
     padding: 16px;
   }
 }
+
+/* Order form UX upgrade v22 */
+#order .order-form-progress {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(111, 81, 70, 0.15);
+  border-radius: 12px;
+  background: #fff8f5;
+}
+
+#order .order-form-progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+#order .order-form-progress-top strong {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #5d4036;
+}
+
+#order .order-form-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #f1e7e2;
+  overflow: hidden;
+}
+
+#order .order-form-progress-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6f5146 0%, #9a776a 100%);
+  transition: width 0.25s ease;
+}
+
+#order #orderForm .field input.field-error,
+#order #orderForm .field select.field-error,
+#order #orderForm .field textarea.field-error {
+  border-color: #bf5a5a;
+  box-shadow: 0 0 0 3px rgba(191, 90, 90, 0.14);
+  background: #fff8f8;
+}
+
+#order .form-status.error {
+  color: #9d3e3e;
+}
+
+#order .form-status.success {
+  color: #1f7a45;
+}
+
+@media (max-width: 640px) {
+  #order .order-form-progress-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
