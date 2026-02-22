@@ -410,6 +410,7 @@ if (testiPrev && testiCards.length) {
     testiIndex = (testiIndex - 1 + testiCards.length) % testiCards.length;
     renderTesti();
     startTestiAuto();
+    trackEvent("testimonial_nav_click", { direction: "prev" });
   });
 }
 
@@ -418,6 +419,7 @@ if (testiNext && testiCards.length) {
     testiIndex = (testiIndex + 1) % testiCards.length;
     renderTesti();
     startTestiAuto();
+    trackEvent("testimonial_nav_click", { direction: "next" });
   });
 }
 
