@@ -62,6 +62,14 @@ Kemaskini terkini yang sudah dibuat:
   - map overflow kanan dibetulkan
   - iframe map kini responsive (width 100%)
   - layout contact/map lebih seimbang pada desktop
+- Order section conversion upgrade:
+  - step card kini ada state aktif/siap ikut progress borang
+  - tambah quick chips untuk `Jenis Majlis`
+  - tambah field wajib `Saiz Kek`
+  - tambah helper tarikh dinamik (tarikh paling awal)
+  - tambah ringkasan tempahan live sebelum submit
+  - validasi field kosong + auto scroll ke field error pertama
+  - sticky submit CTA di mobile untuk kurangkan friction
 
 ## Teknologi
 
@@ -88,6 +96,20 @@ Anys-Maniz/
 2. Atau guna local server (disyorkan):
 - VS Code Live Server
 - `python -m http.server 8080`
+
+## Semakan JavaScript (Syntax Check)
+
+Guna command ini dalam root projek:
+
+```powershell
+node --check script.js
+```
+
+Jika `node` tidak dikesan pada sesetengah terminal, guna full path:
+
+```powershell
+& "C:\Program Files\nodejs\node.exe" --check script.js
+```
 
 ## Owner Settings (Mudah Edit)
 
