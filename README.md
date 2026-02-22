@@ -1,71 +1,38 @@
 # Anys Maniz Website
 
-Website landing page statik untuk kedai kek `Anys Maniz @ Homebaker`.
+Landing page statik untuk `Anys Maniz @ Homebaker` (kedai kek homemade).
 
-## Apa Website Ini Buat
+## Ringkasan Website
 
-Website ini bantu pelanggan untuk:
-- kenal brand dan servis Anys Maniz
-- tengok menu kek ikut kategori
-- isi borang tempahan ringkas
-- terus tempah melalui WhatsApp
+Website ini fokus untuk:
+- tarik pelanggan baru melalui paparan brand + menu + testimoni
+- mudahkan pelanggan terus tempah di WhatsApp
+- bantu owner update maklumat penting dengan cepat tanpa backend
 
-Website ini bantu owner untuk:
-- update contact dan link sosial dari satu tempat
-- kemas kini teks/promo dengan cepat
-- track tindakan penting pelanggan
-
-## Ciri Utama
+## Fungsi Utama (Versi Semasa)
 
 - Responsive UI (desktop, tablet, mobile)
-- Sticky header + mobile hamburger menu
-- Active nav state ikut section semasa scroll
-- Scroll progress bar + back-to-top button
-- Hero, About, Menu, Pakej, Tempahan, Slot, FAQ, Testimoni, Galeri, Contact
-- Penapis kategori menu
-- Borang tempahan auto bina mesej WhatsApp
-- FAQ boleh collapse (buka/tutup) + search keyword
-- Gallery lightbox
+- Sticky header + active nav semasa scroll
+- Hero, About, Menu, Pakej, Tempahan, FAQ, Testimoni, Galeri, Contact
+- Penapis kategori menu kek
+- Borang tempahan pintar:
+  - progress `1/2` -> `2/2`
+  - quick chips untuk `Jenis Majlis`
+  - field wajib `Saiz Kek`
+  - helper tarikh minimum automatik (`leadDays`)
+  - validasi kosong + auto scroll ke field error pertama
+  - ringkasan tempahan live
+  - mesej auto-generate ke WhatsApp
+- FAQ:
+  - buka/tutup (collapse)
+  - carian soalan (search keyword)
+- Testimoni:
+  - nav seterus/sebelum
+  - dots indicator + auto rotate (mobile)
+- Galeri lightbox
 - CTA konsisten ke WhatsApp
-- Event tracking conversion
+- Event tracking (GA4-ready)
 - SEO asas (meta description, Open Graph, JSON-LD LocalBusiness)
-
-## Latest UI Updates
-
-Kemaskini terkini yang sudah dibuat:
-- About section diperkemas (copy pendek, bullet jelas, CTA lebih tepat)
-- Simbol rosak/encoding pada bullet dibetulkan
-- FAQ toggle dipindah ke kanan dan kekal boleh klik bila FAQ ditutup
-- Contact + mini CTA diperkemas (spacing, clickable contact, map balance)
-- Desktop polish pass:
-  - layout lebih padat dan konsisten
-  - typography tuning untuk desktop
-  - visual consistency (radius, shadow, border tone)
-- Hero desktop conversion pass:
-  - headline dipendekkan
-  - CTA hierarchy ditingkatkan
-  - trust badge ditambah
-  - statistik dikurangkan (lebih clean)
-  - promo bar disusun 2-part (copy + syarat + CTA)
-- Header/nav desktop premium pass:
-  - alignment logo-nav-cta lebih kemas
-  - hover/active nav lebih jelas
-  - sticky header nampak lebih premium
-- Hero refinement lanjut:
-  - CTA trust badge + statistik hero lebih clean
-  - promo strip dengan urgency yang lebih jelas
-- Fix contact "Jom singgah":
-  - map overflow kanan dibetulkan
-  - iframe map kini responsive (width 100%)
-  - layout contact/map lebih seimbang pada desktop
-- Order section conversion upgrade:
-  - step card kini ada state aktif/siap ikut progress borang
-  - tambah quick chips untuk `Jenis Majlis`
-  - tambah field wajib `Saiz Kek`
-  - tambah helper tarikh dinamik (tarikh paling awal)
-  - tambah ringkasan tempahan live sebelum submit
-  - validasi field kosong + auto scroll ke field error pertama
-  - sticky submit CTA di mobile untuk kurangkan friction
 
 ## Teknologi
 
@@ -86,6 +53,24 @@ Anys-Maniz/
     `-- images/
 ```
 
+## Cara Guna Website
+
+### A) Untuk Pelanggan
+
+1. Buka website dan lihat menu/pakej.
+2. Pergi ke bahagian `Tempahan`.
+3. Isi borang ringkas (nama, jenis majlis, saiz, tarikh, bajet).
+4. Semak `Ringkasan Tempahan`.
+5. Tekan `Tempah di WhatsApp` untuk hantar detail terus.
+
+### B) Untuk Owner
+
+1. Update nombor WhatsApp / Instagram di `script.js`.
+2. Update minimum hari tempahan (`leadDays`) di `script.js`.
+3. Update teks, harga, pakej, promo dalam `index.html`.
+4. Simpan fail, refresh browser (`Ctrl + F5`).
+5. Semak view desktop + mobile sebelum publish.
+
 ## Cara Jalankan
 
 1. Buka `index.html` terus di browser.
@@ -93,15 +78,15 @@ Anys-Maniz/
 - VS Code Live Server
 - `python -m http.server 8080`
 
-## Semakan JavaScript (Syntax Check)
+## Semakan JavaScript
 
-Guna command ini dalam root projek:
+Dalam root projek:
 
 ```powershell
 node --check script.js
 ```
 
-Jika `node` tidak dikesan pada sesetengah terminal, guna full path:
+Jika `node` tidak dikesan:
 
 ```powershell
 & "C:\Program Files\nodejs\node.exe" --check script.js
@@ -122,9 +107,9 @@ const OWNER_CONTACT_SETTINGS = {
 ```
 
 Kesan:
-- semua link `wa.me` auto ikut nombor ini
-- paparan nombor telefon ikut `whatsappDisplay`
-- link Instagram auto ikut `instagramUrl`
+- semua link `wa.me` ikut `whatsappNumber`
+- paparan nombor ikut `whatsappDisplay`
+- semua link Instagram ikut `instagramUrl`
 
 ### 2) Tetapan minimum hari tempahan
 
@@ -137,7 +122,7 @@ const OWNER_ORDER_SETTINGS = {
 ```
 
 Maksud:
-- `leadDays`: minimum hari tempahan dari tarikh hari ini.
+- `leadDays`: minimum jarak hari antara hari ini dan tarikh tempahan.
 
 ### 3) Google Analytics 4
 
@@ -147,21 +132,7 @@ Edit meta tag di `index.html`:
 <meta name="ga4-measurement-id" content="G-XXXXXXXXXX" />
 ```
 
-Ganti kepada ID sebenar, contoh `G-ABC123XYZ9`.
-
-### 4) Bahagian teks/content owner selalu ubah
-
-Edit terus dalam `index.html`:
-- header / nav
-- hero (`#home`)
-- tentang (`#about`)
-- menu (`#menu`)
-- pakej (`#bundle`)
-- FAQ (`#faq`)
-- contact (`#contact`)
-- promo strip
-
-Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
+Ganti dengan ID sebenar, contoh `G-ABC123XYZ9`.
 
 ## Event Tracking Yang Direkod
 
@@ -176,18 +147,19 @@ Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
 
 ## Rutin Update Mingguan (Disyorkan)
 
-1. semak `leadDays` di `script.js`
-2. semak harga/promo dalam `index.html`
-3. semak nombor WhatsApp dan link Instagram
-4. semak desktop + mobile view
-5. tambah testimoni/gambar baru jika ada
+1. Semak `leadDays` dan polisi tempahan.
+2. Semak harga/promo/pakej dalam `index.html`.
+3. Semak nombor WhatsApp dan link Instagram.
+4. Test borang tempahan hingga buka WhatsApp.
+5. Semak desktop + mobile view.
+6. Tambah testimoni/gambar baru jika ada.
 
 ## Nota Maintenance
 
-- Jika nampak simbol pelik, simpan fail sebagai UTF-8.
-- Jangan ubah ID penting tanpa semak `script.js`:
+- Simpan fail sebagai UTF-8 jika nampak simbol pelik.
+- ID penting yang jangan ditukar tanpa update `script.js`:
   - `orderForm`, `faqToggle`, `faqContent`
-- Untuk prestasi lebih baik, guna imej WebP/AVIF yang lebih ringan.
+- Untuk prestasi, guna imej WebP/AVIF dan saiz imej yang sesuai.
 
 ## Pemilikan
 

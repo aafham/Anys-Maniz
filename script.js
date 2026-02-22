@@ -716,7 +716,7 @@ if (bundleButtons.length) {
       const message =
         `Hai Anys Maniz! Saya berminat dengan pakej ${bundleName}.` +
         (bundlePrice ? `\nHarga: ${bundlePrice}` : "") +
-        `\nBoleh semak slot terdekat?`;
+        `\nBoleh cadangkan tarikh terdekat yang sesuai?`;
       trackEvent("bundle_order_click", {
         bundle_name: bundleName,
         bundle_price: bundlePrice
