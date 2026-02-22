@@ -487,6 +487,8 @@ if (availabilitySlots) {
       dateInput.dispatchEvent(new Event("input", { bubbles: true }));
       dateInput.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+
+    trackEvent("slot_date_select", { date: value });
   });
 }
 
