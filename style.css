@@ -1973,3 +1973,121 @@ a:focus-visible {
     margin-bottom: 10px;
   }
 }
+/* About conversion polish v3 */
+.about-copy {
+  gap: 8px;
+}
+
+.about-copy h2 {
+  max-width: 18ch;
+}
+
+.about-copy p {
+  max-width: 56ch;
+}
+
+.about-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 10px;
+}
+
+.about-metrics span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #fff6f2;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.about-metrics span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--mocha);
+  opacity: 0.8;
+}
+
+.about-points {
+  gap: 8px;
+}
+
+.about-points li {
+  font-size: 1.05rem;
+}
+
+.about-visual .img-box {
+  position: relative;
+}
+
+.about-visual-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 247, 244, 0.95);
+  border: 1px solid var(--border);
+  color: var(--mocha);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.about-micro-trust {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--mocha);
+}
+
+.about-actions {
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .about-copy h2,
+  .about-copy p {
+    max-width: none;
+  }
+
+  .about-actions .btn,
+  .about-actions .btn.ghost {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .about {
+    gap: 16px;
+  }
+
+  .about-copy {
+    gap: 7px;
+  }
+
+  .about-metrics {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .about-metrics span {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .about-points li {
+    font-size: 1rem;
+  }
+
+  .about-micro-trust {
+    font-size: 12px;
+  }
+}
