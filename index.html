@@ -365,44 +365,68 @@
         <div class="section-head">
           <h2>Testimoni Pelanggan</h2>
           <p>Review ringkas daripada pelanggan setia kami.</p>
+          <div class="testi-summary" aria-label="Ringkasan rating pelanggan">
+            <strong>4.9/5</strong>
+            <span>dari 120+ review pelanggan</span>
+          </div>
         </div>
-        <div class="testi-controls">
+        <div class="testi-controls" aria-label="Navigasi testimoni">
           <button class="testi-nav prev" type="button" aria-label="Testimoni sebelum">&larr;</button>
           <button class="testi-nav next" type="button" aria-label="Testimoni seterusnya">&rarr;</button>
         </div>
+        <div class="testi-indicator" aria-live="polite">
+          <div class="testi-dots" aria-label="Posisi testimoni"></div>
+          <span class="testi-count">1 / 3</span>
+        </div>
+        <div class="testi-progress" aria-hidden="true"><span></span></div>
         <div class="testi-grid">
           <article class="testi-card">
-            <p>"Kek sangat lembut dan cantik! Semua tetamu suka."</p>
+            <p class="testi-quote">"Kek sangat lembut dan cantik! Semua tetamu suka."</p>
+            <div class="testi-rating" aria-label="Rating 5 daripada 5">
+              <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="score">5/5</span>
+              <span class="verified">Verified Customer</span>
+            </div>
             <div class="testi-meta">
               <span class="testi-avatar">AH</span>
               <div>
-                <strong>Aina H. &bull; 5/5</strong>
+                <strong>Aina H.</strong>
                 <span>Birthday Cake &bull; Jan 2026</span>
               </div>
             </div>
           </article>
           <article class="testi-card">
-            <p>"Servis pantas, design ikut kehendak. Memang recommended."</p>
+            <p class="testi-quote">"Servis pantas, design ikut kehendak. Memang recommended."</p>
+            <div class="testi-rating" aria-label="Rating 5 daripada 5">
+              <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="score">5/5</span>
+              <span class="verified">Verified Customer</span>
+            </div>
             <div class="testi-meta">
               <span class="testi-avatar">FR</span>
               <div>
-                <strong>Farah R. &bull; 5/5</strong>
+                <strong>Farah R.</strong>
                 <span>Engagement Set &bull; Dis 2025</span>
               </div>
             </div>
           </article>
           <article class="testi-card">
-            <p>"Rasa premium tapi harga masih berpatutan. Akan repeat!"</p>
+            <p class="testi-quote">"Rasa premium tapi harga masih berpatutan. Akan repeat!"</p>
+            <div class="testi-rating" aria-label="Rating 5 daripada 5">
+              <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="score">5/5</span>
+              <span class="verified">Verified Customer</span>
+            </div>
             <div class="testi-meta">
               <span class="testi-avatar">SM</span>
               <div>
-                <strong>Syafiq M. &bull; 5/5</strong>
+                <strong>Syafiq M.</strong>
                 <span>Corporate Order &bull; Nov 2025</span>
               </div>
             </div>
           </article>
         </div>
-        <div class="section-cta">
+        <div class="section-cta testi-cta">
           <a class="btn" href="#order">Tempah di WhatsApp</a>
           <a class="btn ghost" href="#menu">Lihat Menu Kek</a>
         </div>

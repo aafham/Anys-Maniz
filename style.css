@@ -2881,3 +2881,175 @@ body {
     overflow-x: hidden;
   }
 }
+/* Testimonial UX upgrade v13 */
+.testi-summary {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff7f4;
+}
+
+.testi-summary strong {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.testi-summary span {
+  font-size: 13px;
+  color: var(--mocha);
+}
+
+.testi-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.testi-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.testi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(93, 64, 54, 0.25);
+  cursor: pointer;
+}
+
+.testi-dot.active {
+  width: 20px;
+  background: var(--mocha);
+}
+
+.testi-count {
+  font-size: 12px;
+  color: var(--mocha);
+  min-width: 40px;
+  text-align: left;
+}
+
+.testi-progress {
+  width: 220px;
+  max-width: 92%;
+  height: 4px;
+  margin: 0 auto 16px;
+  border-radius: 999px;
+  background: rgba(93, 64, 54, 0.14);
+  overflow: hidden;
+}
+
+.testi-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #d9b7a5, #6b4b40);
+}
+
+.testi-progress.running span {
+  width: 100%;
+  transition: width 4.5s linear;
+}
+
+.testi-card {
+  border: 1px solid rgba(111, 81, 70, 0.14);
+}
+
+.testi-card p,
+.testi-quote {
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.testi-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.testi-rating .stars {
+  color: #9f6b3f;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+.testi-rating .score {
+  font-weight: 700;
+  font-size: 13px;
+  color: #3f302b;
+}
+
+.testi-rating .verified {
+  margin-left: auto;
+  font-size: 11px;
+  color: #2d6a4f;
+  background: #dff4e8;
+  border: 1px solid #c7e9d5;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.testi-nav {
+  background: #fff;
+  border-color: rgba(93, 64, 54, 0.24);
+  color: #3f302b;
+}
+
+.testi-nav:hover {
+  background: #fff7f4;
+  border-color: rgba(93, 64, 54, 0.4);
+}
+
+.testi-nav:focus-visible,
+.testi-dot:focus-visible {
+  outline: 3px solid rgba(93, 64, 54, 0.45);
+  outline-offset: 2px;
+}
+
+.testi-cta {
+  margin-top: 18px;
+}
+
+@media (min-width: 901px) {
+  .testi-indicator,
+  .testi-progress {
+    display: none;
+  }
+
+  .testi-grid {
+    align-items: stretch;
+  }
+
+  .testi-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(93, 64, 54, 0.26);
+  }
+}
+
+@media (max-width: 900px) {
+  .testi-summary {
+    margin-top: 6px;
+  }
+
+  .testi-rating .verified {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  .testi-progress {
+    margin-bottom: 12px;
+  }
+}

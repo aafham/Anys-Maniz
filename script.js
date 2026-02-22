@@ -385,20 +385,52 @@ if (faqSearch && faqItems.length) {
 const testiCards = Array.from(document.querySelectorAll(".testi-grid .testi-card"));
 const testiPrev = document.querySelector(".testi-nav.prev");
 const testiNext = document.querySelector(".testi-nav.next");
+const testiDotsWrap = document.querySelector(".testi-dots");
+const testiCount = document.querySelector(".testi-count");
+const testiProgress = document.querySelector(".testi-progress");
 let testiIndex = 0;
 let testiTimer;
 let testiPaused = false;
 
+const isTestiMobile = () => window.matchMedia("(max-width: 900px)").matches;
+
+const restartTestiProgress = () => {
+  if (!testiProgress) return;
+  if (!isTestiMobile() || testiPaused) {
+    testiProgress.classList.remove("running");
+    return;
+  }
+  testiProgress.classList.remove("running");
+  window.requestAnimationFrame(() => {
+    testiProgress.classList.add("running");
+  });
+};
+
+const renderTestiUI = () => {
+  if (testiCount) {
+    testiCount.textContent = `${testiIndex + 1} / ${testiCards.length}`;
+  }
+  if (testiDotsWrap) {
+    const dots = Array.from(testiDotsWrap.querySelectorAll(".testi-dot"));
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === testiIndex);
+      dot.setAttribute("aria-current", index === testiIndex ? "true" : "false");
+    });
+  }
+  restartTestiProgress();
+};
+
 const renderTesti = () => {
   if (!testiCards.length) return;
-  const isMobile = window.matchMedia("(max-width: 900px)").matches;
+  const mobile = isTestiMobile();
   testiCards.forEach((card, index) => {
-    if (!isMobile) {
+    if (!mobile) {
       card.classList.remove("hidden");
       return;
     }
     card.classList.toggle("hidden", index !== testiIndex);
   });
+  renderTestiUI();
 };
 
 const startTestiAuto = () => {
@@ -407,13 +439,29 @@ const startTestiAuto = () => {
   testiTimer = setInterval(() => {
     if (testiPaused) return;
     if (document.hidden) return;
-    if (!window.matchMedia("(max-width: 900px)").matches) return;
+    if (!isTestiMobile()) return;
     testiIndex = (testiIndex + 1) % testiCards.length;
     renderTesti();
   }, 4500);
 };
 
 if (testiCards.length) {
+  if (testiDotsWrap && !testiDotsWrap.children.length) {
+    testiCards.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "testi-dot";
+      dot.setAttribute("aria-label", `Pergi ke testimoni ${index + 1}`);
+      dot.addEventListener("click", () => {
+        testiIndex = index;
+        renderTesti();
+        startTestiAuto();
+        trackEvent("testimonial_nav_click", { direction: "dot", index: String(index + 1) });
+      });
+      testiDotsWrap.appendChild(dot);
+    });
+  }
+
   renderTesti();
   startTestiAuto();
   window.addEventListener("resize", renderTesti);
@@ -422,20 +470,25 @@ if (testiCards.length) {
   if (testiSection) {
     testiSection.addEventListener("mouseenter", () => {
       testiPaused = true;
+      restartTestiProgress();
     });
     testiSection.addEventListener("mouseleave", () => {
       testiPaused = false;
+      restartTestiProgress();
     });
     testiSection.addEventListener("focusin", () => {
       testiPaused = true;
+      restartTestiProgress();
     });
     testiSection.addEventListener("focusout", () => {
       testiPaused = false;
+      restartTestiProgress();
     });
     testiSection.addEventListener(
       "touchstart",
       () => {
         testiPaused = true;
+        restartTestiProgress();
       },
       { passive: true }
     );
@@ -443,6 +496,7 @@ if (testiCards.length) {
       "touchend",
       () => {
         testiPaused = false;
+        restartTestiProgress();
       },
       { passive: true }
     );
