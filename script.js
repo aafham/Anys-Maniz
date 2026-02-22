@@ -69,6 +69,7 @@ loadGa4();
 
 const orderForm = document.getElementById("orderForm");
 const orderFormStatus = document.getElementById("orderFormStatus");
+const orderProgressStage = document.getElementById("orderProgressStage");
 const orderProgressLabel = document.getElementById("orderProgressLabel");
 const orderProgressCount = document.getElementById("orderProgressCount");
 const orderProgressBar = document.getElementById("orderProgressBar");
@@ -81,6 +82,15 @@ const summaryEvent = document.getElementById("summaryEvent");
 const summarySize = document.getElementById("summarySize");
 const summaryDate = document.getElementById("summaryDate");
 const summaryBudget = document.getElementById("summaryBudget");
+const ORDER_REQUIRED_SELECTOR = "input[required], select[required], textarea[required]";
+
+const setOrderStepState = (activeStep) => {
+  orderStepCards.forEach((stepCard, index) => {
+    const stepIndex = index + 1;
+    stepCard.classList.toggle("is-active", stepIndex === activeStep);
+    stepCard.classList.toggle("is-complete", stepIndex < activeStep);
+  });
+};
 
 const formatSummaryDate = (value) => {
   if (!value) return "-";
@@ -105,7 +115,7 @@ const updateOrderSummary = () => {
 
 const updateOrderProgress = () => {
   if (!orderForm) return;
-  const requiredFields = Array.from(orderForm.querySelectorAll("input[required], select[required], textarea[required]"));
+  const requiredFields = Array.from(orderForm.querySelectorAll(ORDER_REQUIRED_SELECTOR));
   if (!requiredFields.length) return;
 
   const filledCount = requiredFields.filter((field) => String(field.value || "").trim() !== "").length;
@@ -121,30 +131,44 @@ const updateOrderProgress = () => {
   }
 
   if (orderProgressLabel) {
-    orderProgressLabel.textContent =
-      filledCount >= totalCount
-        ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
-        : "Langkah 1/2: Isi maklumat wajib";
+    const done = filledCount >= totalCount;
+    orderProgressLabel.textContent = done
+      ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
+      : "Langkah 1/2: Isi maklumat wajib";
   }
 
-  const flowStage = filledCount === 0 ? 1 : filledCount < totalCount ? 2 : 3;
-  orderStepCards.forEach((stepCard, index) => {
-    const stepIndex = index + 1;
-    stepCard.classList.toggle("is-active", stepIndex === flowStage);
-    stepCard.classList.toggle("is-complete", stepIndex < flowStage);
-  });
+  if (orderProgressStage) {
+    const done = filledCount >= totalCount;
+    orderProgressStage.textContent = done ? "2/2" : "1/2";
+    orderProgressStage.classList.toggle("done", done);
+  }
+
+  let flowStage = 1;
+  if (filledCount >= 1) flowStage = 2;
+  if (filledCount >= 3) flowStage = 3;
+  if (filledCount >= totalCount) flowStage = 4;
+  setOrderStepState(flowStage);
 };
 
 if (orderForm) {
-  const requiredFields = orderForm.querySelectorAll("input[required], select[required], textarea[required]");
+  const requiredFields = orderForm.querySelectorAll(ORDER_REQUIRED_SELECTOR);
 
   orderEventChips.forEach((chip) => {
     chip.addEventListener("click", () => {
       if (!orderEventInput) return;
-      const eventValue = chip.getAttribute("data-event-value") || "";
-      orderEventInput.value = eventValue;
+      const eventField = orderEventInput.closest(".field");
+      const isCustom = chip.getAttribute("data-event-custom") === "true";
+      if (isCustom) {
+        orderEventInput.value = "";
+        if (eventField) eventField.classList.remove("event-chip-locked");
+        orderEventInput.focus();
+      } else {
+        const eventValue = chip.getAttribute("data-event-value") || "";
+        orderEventInput.value = eventValue;
+        if (eventField) eventField.classList.add("event-chip-locked");
+      }
+
       orderEventInput.dispatchEvent(new Event("input", { bubbles: true }));
-      orderEventInput.focus();
       orderEventChips.forEach((item) => {
         item.classList.toggle("is-active", item === chip);
       });
@@ -153,11 +177,25 @@ if (orderForm) {
 
   if (orderEventInput) {
     orderEventInput.addEventListener("input", () => {
+      const eventField = orderEventInput.closest(".field");
       const current = orderEventInput.value.trim().toLowerCase();
+      const customChip = orderEventChips.find((chip) => chip.getAttribute("data-event-custom") === "true");
       orderEventChips.forEach((chip) => {
         const value = (chip.getAttribute("data-event-value") || "").toLowerCase();
+        const isCustomChip = chip.getAttribute("data-event-custom") === "true";
+        if (isCustomChip) return;
         chip.classList.toggle("is-active", current !== "" && current === value);
       });
+      const hasKnownChip = orderEventChips.some((chip) => {
+        if (chip.getAttribute("data-event-custom") === "true") return false;
+        return chip.classList.contains("is-active");
+      });
+      if (!hasKnownChip && eventField) {
+        eventField.classList.remove("event-chip-locked");
+      }
+      if (customChip) {
+        customChip.classList.toggle("is-active", current !== "" && !hasKnownChip);
+      }
     });
   }
 
@@ -234,6 +272,7 @@ if (orderForm) {
       budget: String(budget || ""),
       size: String(size || "")
     });
+    setOrderStepState(5);
 
     const waUrl = buildWhatsAppUrl(message);
     const pendingWindow = window.open("about:blank", "_blank");

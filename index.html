@@ -343,22 +343,17 @@
             </div>
 
             <div class="order-info-grid">
-              <article class="order-note">
-                <h3>Nota Penting</h3>
+              <details class="order-note order-note-accordion" open>
+                <summary>
+                  <h3>Nota Penting</h3>
+                  <span aria-hidden="true">+</span>
+                </summary>
                 <ul>
                   <li>Tempahan minimum 3 hari lebih awal.</li>
                   <li>Deposit 50% diperlukan untuk pengesahan tempahan.</li>
                   <li>Pembatalan dalam 48 jam sebelum tarikh tidak dipulangkan deposit.</li>
                 </ul>
-              </article>
-              <article class="order-policy">
-                <h3>Apa akan anda dapat</h3>
-                <ul>
-                  <li>Konsultasi terus dengan owner di WhatsApp.</li>
-                  <li>Cadangan saiz, design, dan bajet yang sesuai.</li>
-                  <li>Semakan slot awal sebelum lock tarikh.</li>
-                </ul>
-              </article>
+              </details>
             </div>
           </div>
 
@@ -371,6 +366,7 @@
               <li>Respon pantas waktu operasi</li>
               <li>Boleh custom ikut tema majlis</li>
               <li>Boleh terus lock tarikh jika slot ada</li>
+              <li>Cadangan saiz, design, dan bajet yang sesuai</li>
             </ul>
             <p class="order-response-time">Kebiasaan balas dalam 5-15 minit (waktu operasi).</p>
             <a class="btn" href="https://wa.me/60123456789">Tempah di WhatsApp</a>
@@ -383,29 +379,32 @@
             <p>Isi maklumat asas, kami akan terus sambung perbincangan di WhatsApp.</p>
             <div class="order-form-progress" aria-live="polite">
               <div class="order-form-progress-top">
+                <span id="orderProgressStage" class="order-progress-stage">1/2</span>
                 <span id="orderProgressLabel">Langkah 1/2: Isi maklumat wajib</span>
                 <strong id="orderProgressCount">0/5 lengkap</strong>
               </div>
               <div class="order-form-progress-bar" aria-hidden="true"><span id="orderProgressBar"></span></div>
             </div>
           </div>
-          <form id="orderForm">
-            <div class="field">
+          <div class="order-form-layout">
+            <form id="orderForm">
+              <div class="field">
               <label for="name">Nama</label>
               <input id="name" name="name" type="text" placeholder="Contoh: Aina" required />
-            </div>
-            <div class="field">
+              </div>
+              <div class="field">
               <label for="event">Jenis Majlis</label>
               <div class="event-chip-group" role="group" aria-label="Pilih jenis majlis cepat">
                 <button class="event-chip" type="button" data-event-value="Hari Jadi">Hari Jadi</button>
                 <button class="event-chip" type="button" data-event-value="Kahwin">Kahwin</button>
                 <button class="event-chip" type="button" data-event-value="Tunang">Tunang</button>
                 <button class="event-chip" type="button" data-event-value="Corporate">Corporate</button>
+                <button class="event-chip is-custom" type="button" data-event-custom="true">Lain-lain</button>
               </div>
               <input id="event" name="event" type="text" placeholder="Hari jadi / Kahwin / Tunang" required />
               <small>Pilih chip untuk isi pantas atau tulis sendiri.</small>
-            </div>
-            <div class="field">
+              </div>
+              <div class="field">
               <label for="size">Saiz Kek</label>
               <select id="size" name="size" required>
                 <option value="" selected disabled>Pilih saiz</option>
@@ -414,14 +413,14 @@
                 <option value="2kg">2kg</option>
                 <option value="Custom">Custom / belum pasti</option>
               </select>
-            </div>
-            <div class="field">
+              </div>
+              <div class="field">
               <label for="date">Tarikh diperlukan</label>
               <input id="date" name="date" type="date" required />
               <small>Minimum 3 hari dari tarikh tempahan.</small>
               <small id="earliestDateHint">Tarikh paling awal: -</small>
-            </div>
-            <div class="field">
+              </div>
+              <div class="field">
               <label for="budget">Bajet Anggaran</label>
               <select id="budget" name="budget" required>
                 <option value="" selected disabled>Pilih bajet</option>
@@ -430,12 +429,16 @@
                 <option value="RM150 - RM250">RM150 - RM250</option>
                 <option value="RM250 ke atas">RM250 ke atas</option>
               </select>
-            </div>
-            <div class="field full">
+              </div>
+              <div class="field full">
               <label for="notes">Nota / Keinginan khas</label>
               <textarea id="notes" name="notes" rows="3" placeholder="Tema, warna, rasa, size"></textarea>
-            </div>
-            <article class="order-live-summary full" aria-live="polite">
+              </div>
+              <button class="btn order-submit-btn" type="submit">Tempah di WhatsApp</button>
+              <p id="orderFormStatus" class="form-status" role="status" aria-live="polite"></p>
+              <p class="form-note">Kami akan balas secepat mungkin untuk sahkan design dan harga.</p>
+            </form>
+            <article class="order-live-summary order-summary-sticky" aria-live="polite">
               <h4>Ringkasan Tempahan</h4>
               <div class="order-summary-grid">
                 <p>Nama: <strong id="summaryName">-</strong></p>
@@ -444,11 +447,9 @@
                 <p>Tarikh: <strong id="summaryDate">-</strong></p>
                 <p>Bajet: <strong id="summaryBudget">-</strong></p>
               </div>
+              <p class="order-summary-hint">Semak ringkasan ini sebelum tekan butang tempah.</p>
             </article>
-            <button class="btn order-submit-btn" type="submit">Tempah di WhatsApp</button>
-            <p id="orderFormStatus" class="form-status" role="status" aria-live="polite"></p>
-            <p class="form-note">Kami akan balas secepat mungkin untuk sahkan design dan harga.</p>
-          </form>
+          </div>
         </div>
       </section>
 
