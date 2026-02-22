@@ -816,6 +816,36 @@ a:focus-visible {
   color: var(--mocha);
   font-size: 13px;
 }
+.collapse-toggle {
+  margin: 12px auto 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff7f4;
+  color: var(--mocha);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.collapse-toggle:hover {
+  background: var(--blush);
+}
+
+.availability-content {
+  overflow: hidden;
+  transition: max-height 0.28s ease, opacity 0.2s ease;
+}
+
+.availability.is-collapsed .availability-content {
+  max-height: 0 !important;
+  opacity: 0;
+  margin-top: 0;
+}
 
 .order-cta {
   margin-top: 24px;

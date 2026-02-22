@@ -327,6 +327,38 @@ if (filterButtons.length && menuCards.length) {
   });
 }
 
+const faqSection = document.getElementById("faq");
+const faqToggle = document.getElementById("faqToggle");
+const faqContent = document.getElementById("faqContent");
+
+const updateFaqHeight = () => {
+  if (!faqSection || !faqContent) return;
+  if (faqSection.classList.contains("is-collapsed")) return;
+  faqContent.style.maxHeight = `${faqContent.scrollHeight}px`;
+};
+
+if (faqSection && faqToggle && faqContent) {
+  const setFaqState = (collapsed) => {
+    faqSection.classList.toggle("is-collapsed", collapsed);
+    faqToggle.setAttribute("aria-expanded", String(!collapsed));
+    faqToggle.textContent = collapsed ? "Buka FAQ" : "Tutup FAQ";
+    faqContent.style.maxHeight = collapsed ? "0px" : `${faqContent.scrollHeight}px`;
+  };
+
+  setFaqState(false);
+
+  faqToggle.addEventListener("click", () => {
+    const collapsed = !faqSection.classList.contains("is-collapsed");
+    setFaqState(collapsed);
+    trackEvent("faq_toggle", { state: collapsed ? "collapsed" : "expanded" });
+  });
+
+  faqSection.addEventListener("toggle", () => {
+    window.setTimeout(updateFaqHeight, 10);
+  }, true);
+
+  window.addEventListener("resize", updateFaqHeight);
+}
 const faqSearch = document.getElementById("faqSearch");
 const faqItems = document.querySelectorAll(".faq-item");
 const faqEmptyState = document.getElementById("faqEmptyState");
@@ -345,7 +377,7 @@ if (faqSearch && faqItems.length) {
       if (!query) item.removeAttribute("open");
     });
 
-    if (faqEmptyState) faqEmptyState.hidden = visibleCount !== 0;
+    if (faqEmptyState) faqEmptyState.hidden = visibleCount !== 0;`r`n    updateFaqHeight();
   });
 }
 
@@ -438,6 +470,34 @@ if (testiNext && testiCards.length) {
   });
 }
 
+const availabilitySection = document.getElementById("availability");
+const availabilityToggle = document.getElementById("availabilityToggle");
+const availabilityContent = document.getElementById("availabilityContent");
+
+if (availabilitySection && availabilityToggle && availabilityContent) {
+  const setAvailabilityState = (collapsed) => {
+    availabilitySection.classList.toggle("is-collapsed", collapsed);
+    availabilityToggle.setAttribute("aria-expanded", String(!collapsed));
+    availabilityToggle.textContent = collapsed ? "Buka Slot" : "Tutup Slot";
+    availabilityContent.style.maxHeight = collapsed
+      ? "0px"
+      : `${availabilityContent.scrollHeight}px`;
+  };
+
+  setAvailabilityState(false);
+
+  availabilityToggle.addEventListener("click", () => {
+    const collapsed = !availabilitySection.classList.contains("is-collapsed");
+    setAvailabilityState(collapsed);
+    trackEvent("availability_toggle", { state: collapsed ? "collapsed" : "expanded" });
+  });
+
+  window.addEventListener("resize", () => {
+    if (!availabilitySection.classList.contains("is-collapsed")) {
+      availabilityContent.style.maxHeight = `${availabilityContent.scrollHeight}px`;
+    }
+  });
+}
 const availabilitySlots = document.getElementById("availabilitySlots");
 if (availabilitySlots) {
   const totalDays = Number(OWNER_SLOT_SETTINGS.totalDays) || 12;
@@ -484,6 +544,9 @@ if (availabilitySlots) {
     availabilitySlots.appendChild(button);
   }
 
+  if (availabilitySection && availabilityContent && !availabilitySection.classList.contains("is-collapsed")) {
+    availabilityContent.style.maxHeight = `${availabilityContent.scrollHeight}px`;
+  }
   availabilitySlots.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
@@ -526,3 +589,4 @@ if (bundleButtons.length) {
     });
   });
 }
+

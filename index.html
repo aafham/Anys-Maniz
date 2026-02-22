@@ -333,9 +333,14 @@
         <div class="section-head">
           <h2>Semak Slot Tempahan</h2>
           <p>Pilih tarikh untuk semakan awal slot (akan disahkan semula di WhatsApp).</p>
+          <button id="availabilityToggle" class="collapse-toggle" type="button" aria-expanded="true" aria-controls="availabilityContent">
+            Tutup Slot
+          </button>
         </div>
-        <div id="availabilitySlots" class="availability-grid"></div>
-        <p class="availability-note">Klik tarikh "Slot Ada" untuk auto isi tarikh di borang tempahan.</p>
+        <div id="availabilityContent" class="availability-content">
+          <div id="availabilitySlots" class="availability-grid"></div>
+          <p class="availability-note">Klik tarikh "Slot Ada" untuk auto isi tarikh di borang tempahan.</p>
+        </div>
       </section>
 
       <section id="testi" class="testimonials section alt">
@@ -416,13 +421,17 @@
         <div class="section-head">
           <h2>Soalan Lazim</h2>
           <p>Ringkas, jelas, dan mudah difahami sebelum anda buat tempahan.</p>
+          <button id="faqToggle" class="collapse-toggle" type="button" aria-expanded="true" aria-controls="faqContent">
+            Tutup FAQ
+          </button>
         </div>
-        <div class="faq-search-wrap">
-          <label for="faqSearch">Cari soalan</label>
-          <input id="faqSearch" type="search" placeholder="Contoh: delivery, deposit, tempah" />
-        </div>
-        <p id="faqEmptyState" class="faq-empty" hidden>Tiada soalan dijumpai. Cuba kata kunci lain.</p>
-        <div class="faq-grid">
+        <div id="faqContent" class="faq-content">
+          <div class="faq-search-wrap">
+            <label for="faqSearch">Cari soalan</label>
+            <input id="faqSearch" type="search" placeholder="Contoh: delivery, deposit, tempah" />
+          </div>
+          <p id="faqEmptyState" class="faq-empty" hidden>Tiada soalan dijumpai. Cuba kata kunci lain.</p>
+          <div class="faq-grid">
           <details class="faq-item">
             <summary>Berapa hari awal perlu tempah?</summary>
             <p>Minimum 3 hari lebih awal. Tempahan lebih awal membantu kami sediakan design terbaik.</p>
