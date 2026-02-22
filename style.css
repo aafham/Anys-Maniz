@@ -2842,3 +2842,30 @@ a:focus-visible {
     padding: 20px 0 14px;
   }
 }
+/* Contact map overflow hard-fix v11 */
+@media (min-width: 1024px) {
+  #contact .contact-wrap,
+  #contact .contact-wide,
+  #contact .contact-info,
+  #contact .map-panel,
+  #contact .map-embed {
+    min-width: 0;
+  }
+
+  #contact .contact-wide {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  }
+
+  #contact .map-panel {
+    width: 100%;
+    max-width: 360px;
+    justify-self: end;
+    overflow: hidden;
+  }
+
+  #contact .map-embed iframe {
+    width: 100% !important;
+    max-width: 100%;
+    display: block;
+  }
+}
