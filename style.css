@@ -1688,3 +1688,16 @@ a:focus-visible {
   }
 }
 
+
+
+.faq-content {
+  overflow: hidden;
+  transition: max-height 0.28s ease, opacity 0.2s ease;
+}
+
+.faq.is-collapsed .faq-content {
+  max-height: 0 !important;
+  opacity: 0;
+  margin-top: 0;
+}
+

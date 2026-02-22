@@ -377,7 +377,8 @@ if (faqSearch && faqItems.length) {
       if (!query) item.removeAttribute("open");
     });
 
-    if (faqEmptyState) faqEmptyState.hidden = visibleCount !== 0;`r`n    updateFaqHeight();
+    if (faqEmptyState) faqEmptyState.hidden = visibleCount !== 0;
+    updateFaqHeight();
   });
 }
 
