@@ -1556,6 +1556,36 @@ a:focus-visible {
     right: 14px;
     bottom: 16px;
   }
+
+  .logo-text strong {
+    font-size: 17px;
+  }
+
+  .logo-text span {
+    font-size: 10px;
+  }
+
+  .nav a {
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .section-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-cta .btn,
+  .section-cta .btn.ghost {
+    width: 100%;
+  }
+
+  .menu-card,
+  .bundle .bundle-card,
+  .testi-card,
+  .faq-item {
+    border-radius: 18px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1598,8 +1628,33 @@ a:focus-visible {
     height: 240px;
   }
 
+  .menu-grid,
+  .faq-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-proof,
+  .order-note,
+  .order-cta,
+  .mini-cta-inner {
+    border-radius: 16px;
+  }
+
+  .testi-card {
+    padding: 16px;
+  }
+
   .footer {
     padding: 20px 0 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-links {
+    gap: 12px;
+    flex-wrap: wrap;
   }
 }
 
