@@ -55,6 +55,13 @@ Kemaskini terkini yang sudah dibuat:
   - alignment logo-nav-cta lebih kemas
   - hover/active nav lebih jelas
   - sticky header nampak lebih premium
+- Hero refinement lanjut:
+  - CTA trust badge + statistik hero lebih clean
+  - promo strip dengan urgency yang lebih jelas
+- Fix contact "Jom singgah":
+  - map overflow kanan dibetulkan
+  - iframe map kini responsive (width 100%)
+  - layout contact/map lebih seimbang pada desktop
 
 ## Teknologi
 
