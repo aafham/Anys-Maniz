@@ -1,4 +1,4 @@
-﻿# Anys Maniz Website
+# Anys Maniz Website
 
 Website landing page statik untuk kedai kek `Anys Maniz @ Homebaker`.
 
@@ -11,28 +11,50 @@ Website ini bantu pelanggan untuk:
 - isi borang tempahan ringkas
 - terus tempah melalui WhatsApp
 
-Website ini juga bantu owner untuk:
-- update nombor WhatsApp dan Instagram dari satu tempat
+Website ini bantu owner untuk:
+- update contact dan link sosial dari satu tempat
 - update slot penuh/cepat penuh tanpa ubah HTML
-- track tindakan penting pelanggan (CTA, form, slot, gallery)
+- kemas kini teks/promo dengan cepat
+- track tindakan penting pelanggan
 
 ## Ciri Utama
 
-- Responsive UI untuk desktop, tablet, mobile
+- Responsive UI (desktop, tablet, mobile)
 - Sticky header + mobile hamburger menu
-- Active nav highlight ikut section semasa scroll
+- Active nav state ikut section semasa scroll
 - Scroll progress bar + back-to-top button
 - Hero, About, Menu, Pakej, Tempahan, Slot, FAQ, Testimoni, Galeri, Contact
 - Penapis kategori menu
 - Borang tempahan auto bina mesej WhatsApp
-- Slot tempahan auto-generate berdasarkan setting owner
+- Slot tempahan auto-generate + status penuh/cepat penuh
 - Slot section boleh collapse (buka/tutup)
-- FAQ boleh collapse (buka/tutup) + carian kata kunci
-- Testimoni dengan controls
+- FAQ boleh collapse (buka/tutup) + search keyword
 - Gallery lightbox
 - CTA konsisten ke WhatsApp
-- Tracking event untuk conversion
+- Event tracking conversion
 - SEO asas (meta description, Open Graph, JSON-LD LocalBusiness)
+
+## Latest UI Updates
+
+Kemaskini terkini yang sudah dibuat:
+- About section diperkemas (copy pendek, bullet jelas, CTA lebih tepat)
+- Simbol rosak/encoding pada bullet dibetulkan
+- FAQ toggle dipindah ke kanan dan kekal boleh klik bila FAQ ditutup
+- Contact + mini CTA diperkemas (spacing, clickable contact, map balance)
+- Desktop polish pass:
+  - layout lebih padat dan konsisten
+  - typography tuning untuk desktop
+  - visual consistency (radius, shadow, border tone)
+- Hero desktop conversion pass:
+  - headline dipendekkan
+  - CTA hierarchy ditingkatkan
+  - trust badge ditambah
+  - statistik dikurangkan (lebih clean)
+  - promo bar disusun 2-part (copy + syarat + CTA)
+- Header/nav desktop premium pass:
+  - alignment logo-nav-cta lebih kemas
+  - hover/active nav lebih jelas
+  - sticky header nampak lebih premium
 
 ## Teknologi
 
@@ -60,11 +82,11 @@ Anys-Maniz/
 - VS Code Live Server
 - `python -m http.server 8080`
 
-## Panduan Owner: Bahagian Yang Selalu Diedit
+## Owner Settings (Mudah Edit)
 
 ### 1) Contact dan sosial
 
-Edit di bahagian atas `script.js`:
+Edit di atas `script.js`:
 
 ```js
 const OWNER_CONTACT_SETTINGS = {
@@ -74,10 +96,10 @@ const OWNER_CONTACT_SETTINGS = {
 };
 ```
 
-Kesan perubahan:
-- semua link `wa.me` automatik ikut nombor baru
+Kesan:
+- semua link `wa.me` auto ikut nombor ini
 - paparan nombor telefon ikut `whatsappDisplay`
-- link Instagram automatik ikut `instagramUrl`
+- link Instagram auto ikut `instagramUrl`
 
 ### 2) Slot tempahan
 
@@ -96,9 +118,9 @@ const OWNER_SLOT_SETTINGS = {
 };
 ```
 
-Maksud field:
-- `totalDays`: berapa hari nak dipaparkan pada kad slot
-- `startAfterDays`: mula slot selepas berapa hari dari hari semasa
+Maksud:
+- `totalDays`: bilangan hari dipaparkan
+- `startAfterDays`: mula slot selepas berapa hari
 - `fullDates`: tarikh penuh
 - `limitedDates`: tarikh cepat penuh
 
@@ -112,19 +134,21 @@ Edit meta tag di `index.html`:
 <meta name="ga4-measurement-id" content="G-XXXXXXXXXX" />
 ```
 
-Tukar ke ID sebenar, contoh `G-ABC123XYZ9`.
+Ganti kepada ID sebenar, contoh `G-ABC123XYZ9`.
 
-### 4) Content teks (owner boleh edit terus)
+### 4) Bahagian teks/content owner selalu ubah
 
-Edit dalam `index.html` untuk bahagian:
+Edit terus dalam `index.html`:
+- header / nav
 - hero (`#home`)
 - tentang (`#about`)
 - menu (`#menu`)
 - pakej (`#bundle`)
 - FAQ (`#faq`)
 - contact (`#contact`)
+- promo strip
 
-Tip: selepas ubah teks, buat hard refresh browser (`Ctrl + F5`) untuk pastikan CSS/JS cache lama tidak ganggu.
+Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
 
 ## Event Tracking Yang Direkod
 
@@ -143,17 +167,17 @@ Tip: selepas ubah teks, buat hard refresh browser (`Ctrl + F5`) untuk pastikan C
 
 1. update `fullDates` dan `limitedDates`
 2. semak harga/promo dalam `index.html`
-3. semak link WhatsApp dan Instagram masih betul
-4. semak paparan mobile (hero, CTA, FAQ, contact)
-5. tambah 1-2 gambar/testimoni baru jika ada
+3. semak nombor WhatsApp dan link Instagram
+4. semak desktop + mobile view
+5. tambah testimoni/gambar baru jika ada
 
 ## Nota Maintenance
 
-- Jika nampak simbol pelik, pastikan fail disimpan sebagai UTF-8.
+- Jika nampak simbol pelik, simpan fail sebagai UTF-8.
 - Jangan ubah ID penting tanpa semak `script.js`:
   - `orderForm`, `faqToggle`, `faqContent`, `availabilityToggle`, `availabilityContent`
-- Untuk prestasi lebih baik, guna imej WebP/AVIF dengan saiz ringan.
+- Untuk prestasi lebih baik, guna imej WebP/AVIF yang lebih ringan.
 
 ## Pemilikan
 
-Website ini dibina untuk kegunaan perniagaan `Anys Maniz @ Homebaker`.
+Website ini disediakan untuk kegunaan perniagaan `Anys Maniz @ Homebaker`.
