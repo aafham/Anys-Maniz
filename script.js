@@ -12,17 +12,10 @@ const OWNER_ANALYTICS_SETTINGS = {
 
 const WHATSAPP_NUMBER = OWNER_CONTACT_SETTINGS.whatsappNumber;
 
-// OWNER SLOT SETTINGS
-// Owner hanya perlu edit bahagian ini untuk ubah slot.
-const OWNER_SLOT_SETTINGS = {
-  totalDays: 12,
-  startAfterDays: 3,
-  fullDates: [
-    // "2026-03-05"
-  ],
-  limitedDates: [
-    // "2026-03-03"
-  ]
+// OWNER ORDER SETTINGS
+// Owner hanya perlu ubah leadDays untuk minimum hari tempahan.
+const OWNER_ORDER_SETTINGS = {
+  leadDays: 3
 };
 
 const formatDateValue = (date) => {
@@ -383,7 +376,7 @@ if (backToTopButton) {
 const dateInput = document.getElementById("date");
 if (dateInput) {
   const minDate = new Date();
-  minDate.setDate(minDate.getDate() + OWNER_SLOT_SETTINGS.startAfterDays);
+  minDate.setDate(minDate.getDate() + OWNER_ORDER_SETTINGS.leadDays);
   dateInput.min = formatDateValue(minDate);
   if (earliestDateHint) {
     earliestDateHint.textContent = `Tarikh paling awal: ${formatSummaryDate(formatDateValue(minDate))}`;
@@ -710,106 +703,6 @@ if (testiNext && testiCards.length) {
     renderTesti();
     startTestiAuto();
     trackEvent("testimonial_nav_click", { direction: "next" });
-  });
-}
-
-const availabilitySection = document.getElementById("availability");
-const availabilityToggle = document.getElementById("availabilityToggle");
-const availabilityContent = document.getElementById("availabilityContent");
-
-if (availabilitySection && availabilityToggle && availabilityContent) {
-  const setAvailabilityState = (collapsed) => {
-    availabilitySection.classList.toggle("is-collapsed", collapsed);
-    availabilityToggle.setAttribute("aria-expanded", String(!collapsed));
-    availabilityToggle.textContent = collapsed ? "Buka Slot" : "Tutup Slot";
-    availabilityContent.style.maxHeight = collapsed
-      ? "0px"
-      : `${availabilityContent.scrollHeight}px`;
-  };
-
-  setAvailabilityState(false);
-
-  availabilityToggle.addEventListener("click", () => {
-    const collapsed = !availabilitySection.classList.contains("is-collapsed");
-    setAvailabilityState(collapsed);
-    trackEvent("availability_toggle", { state: collapsed ? "collapsed" : "expanded" });
-  });
-
-  window.addEventListener("resize", () => {
-    if (!availabilitySection.classList.contains("is-collapsed")) {
-      availabilityContent.style.maxHeight = `${availabilityContent.scrollHeight}px`;
-    }
-  });
-}
-const availabilitySlots = document.getElementById("availabilitySlots");
-if (availabilitySlots) {
-  const totalDays = Number(OWNER_SLOT_SETTINGS.totalDays) || 12;
-  const startAfterDays = Number(OWNER_SLOT_SETTINGS.startAfterDays) || 3;
-  const fullDatesSet = new Set(OWNER_SLOT_SETTINGS.fullDates || []);
-  const limitedDatesSet = new Set(OWNER_SLOT_SETTINGS.limitedDates || []);
-
-  const baseDate = new Date();
-  baseDate.setDate(baseDate.getDate() + startAfterDays);
-
-  for (let i = 0; i < totalDays; i += 1) {
-    const slotDate = new Date(baseDate);
-    slotDate.setDate(baseDate.getDate() + i);
-    const value = formatDateValue(slotDate);
-    const label = slotDate.toLocaleDateString("ms-MY", {
-      weekday: "short",
-      day: "2-digit",
-      month: "short"
-    });
-
-    let status = "available";
-    let text = "Slot Ada";
-    if (limitedDatesSet.has(value)) {
-      status = "limited";
-      text = "Cepat Penuh";
-    }
-    if (fullDatesSet.has(value)) {
-      status = "full";
-      text = "Penuh";
-    }
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `slot-btn ${status}`;
-    button.setAttribute("data-date", value);
-    button.setAttribute("aria-disabled", String(status === "full"));
-    button.innerHTML = `
-      <strong>${label}</strong>
-      <span>${value}</span>
-      <span class="slot-badge">${text}</span>
-    `;
-
-    if (status === "full") button.disabled = true;
-    availabilitySlots.appendChild(button);
-  }
-
-  if (availabilitySection && availabilityContent && !availabilitySection.classList.contains("is-collapsed")) {
-    availabilityContent.style.maxHeight = `${availabilityContent.scrollHeight}px`;
-  }
-  availabilitySlots.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-    const button = target.closest(".slot-btn");
-    if (!button || button.classList.contains("full")) return;
-    const value = button.getAttribute("data-date");
-    if (!value) return;
-
-    availabilitySlots
-      .querySelectorAll(".slot-btn")
-      .forEach((item) => item.classList.remove("selected"));
-    button.classList.add("selected");
-
-    if (dateInput) {
-      dateInput.value = value;
-      dateInput.dispatchEvent(new Event("input", { bubbles: true }));
-      dateInput.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    trackEvent("slot_date_select", { date: value });
   });
 }
 

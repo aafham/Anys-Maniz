@@ -7,13 +7,11 @@ Website landing page statik untuk kedai kek `Anys Maniz @ Homebaker`.
 Website ini bantu pelanggan untuk:
 - kenal brand dan servis Anys Maniz
 - tengok menu kek ikut kategori
-- semak slot tempahan awal
 - isi borang tempahan ringkas
 - terus tempah melalui WhatsApp
 
 Website ini bantu owner untuk:
 - update contact dan link sosial dari satu tempat
-- update slot penuh/cepat penuh tanpa ubah HTML
 - kemas kini teks/promo dengan cepat
 - track tindakan penting pelanggan
 
@@ -26,8 +24,6 @@ Website ini bantu owner untuk:
 - Hero, About, Menu, Pakej, Tempahan, Slot, FAQ, Testimoni, Galeri, Contact
 - Penapis kategori menu
 - Borang tempahan auto bina mesej WhatsApp
-- Slot tempahan auto-generate + status penuh/cepat penuh
-- Slot section boleh collapse (buka/tutup)
 - FAQ boleh collapse (buka/tutup) + search keyword
 - Gallery lightbox
 - CTA konsisten ke WhatsApp
@@ -130,30 +126,18 @@ Kesan:
 - paparan nombor telefon ikut `whatsappDisplay`
 - link Instagram auto ikut `instagramUrl`
 
-### 2) Slot tempahan
+### 2) Tetapan minimum hari tempahan
 
 Edit di `script.js`:
 
 ```js
-const OWNER_SLOT_SETTINGS = {
-  totalDays: 12,
-  startAfterDays: 3,
-  fullDates: [
-    // "2026-03-05"
-  ],
-  limitedDates: [
-    // "2026-03-03"
-  ]
+const OWNER_ORDER_SETTINGS = {
+  leadDays: 3
 };
 ```
 
 Maksud:
-- `totalDays`: bilangan hari dipaparkan
-- `startAfterDays`: mula slot selepas berapa hari
-- `fullDates`: tarikh penuh
-- `limitedDates`: tarikh cepat penuh
-
-Format tarikh wajib `YYYY-MM-DD`.
+- `leadDays`: minimum hari tempahan dari tarikh hari ini.
 
 ### 3) Google Analytics 4
 
@@ -185,8 +169,6 @@ Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
 - `cta_to_order_click`
 - `order_form_submit`
 - `menu_filter_select`
-- `slot_date_select`
-- `availability_toggle`
 - `faq_toggle`
 - `bundle_order_click`
 - `gallery_open`
@@ -194,7 +176,7 @@ Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
 
 ## Rutin Update Mingguan (Disyorkan)
 
-1. update `fullDates` dan `limitedDates`
+1. semak `leadDays` di `script.js`
 2. semak harga/promo dalam `index.html`
 3. semak nombor WhatsApp dan link Instagram
 4. semak desktop + mobile view
@@ -204,7 +186,7 @@ Tip: selepas ubah, buat hard refresh (`Ctrl + F5`).
 
 - Jika nampak simbol pelik, simpan fail sebagai UTF-8.
 - Jangan ubah ID penting tanpa semak `script.js`:
-  - `orderForm`, `faqToggle`, `faqContent`, `availabilityToggle`, `availabilityContent`
+  - `orderForm`, `faqToggle`, `faqContent`
 - Untuk prestasi lebih baik, guna imej WebP/AVIF yang lebih ringan.
 
 ## Pemilikan
