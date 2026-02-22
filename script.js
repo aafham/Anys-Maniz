@@ -91,6 +91,9 @@ if (orderForm) {
     if (orderFormStatus) {
       orderFormStatus.textContent = "Membuka WhatsApp untuk hantar tempahan anda...";
       orderFormStatus.classList.add("show");
+      window.setTimeout(() => {
+        orderFormStatus.classList.remove("show");
+      }, 3500);
     }
 
     trackEvent("order_form_submit", {
