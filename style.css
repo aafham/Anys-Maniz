@@ -3212,3 +3212,134 @@ body {
     font-size: 23px;
   }
 }
+/* About major redesign v18 */
+.about {
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.about-copy {
+  gap: 10px;
+}
+
+.about-copy h2 {
+  max-width: 15ch;
+}
+
+.about-intro {
+  max-width: 58ch;
+  color: #453733;
+}
+
+.about-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 6px 0 2px;
+}
+
+.about-kpi {
+  background: #fff8f5;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.about-kpi strong {
+  display: block;
+  font-size: 20px;
+  font-family: "Playfair Display", serif;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.about-kpi span {
+  font-size: 12px;
+  color: var(--mocha);
+}
+
+.about-feature-grid {
+  margin-top: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.about-feature {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.about-feature h3 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.about-feature p {
+  font-size: 13px;
+  color: var(--mocha);
+}
+
+.about-points {
+  margin-top: 4px;
+  gap: 9px;
+}
+
+.about-points li {
+  padding-left: 14px;
+}
+
+.about-points li strong {
+  color: #332724;
+}
+
+.about-actions {
+  margin-top: 12px;
+}
+
+.about-visual-meta {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.about-visual-meta span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff8f5;
+  color: var(--mocha);
+  font-size: 12px;
+}
+
+@media (max-width: 1023px) {
+  .about {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-visual {
+    order: -1;
+  }
+
+  .about-kpis,
+  .about-feature-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-kpis,
+  .about-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-actions .btn,
+  .about-actions .btn.ghost {
+    width: 100%;
+  }
+}
