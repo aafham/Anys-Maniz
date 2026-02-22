@@ -1375,7 +1375,7 @@ a:focus-visible {
   transform: translateX(-50%);
   width: calc(100% - 28px);
   max-width: 420px;
-  display: none;
+  display: none !important;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   background: rgba(255, 250, 247, 0.95);
@@ -1403,7 +1403,8 @@ a:focus-visible {
 
 .sticky-order {
   position: fixed;
-  left: 24px;
+  right: 24px;
+  left: auto;
   bottom: 24px;
   z-index: 1000;
   background: rgba(255, 250, 247, 0.96);
@@ -1412,7 +1413,8 @@ a:focus-visible {
   padding: 10px;
   display: grid;
   gap: 8px;
-  min-width: 250px;
+  width: min(300px, calc(100% - 28px));
+  min-width: 0;
   box-shadow: var(--shadow-soft);
 }
 
@@ -1520,13 +1522,14 @@ a:focus-visible {
   }
 
   .sticky-order {
+    right: auto;
     left: 14px;
     bottom: 142px;
-    min-width: 220px;
+    width: min(280px, calc(100% - 28px));
   }
 
   .quick-bar {
-    display: grid;
+    display: grid !important;
   }
 }
 
