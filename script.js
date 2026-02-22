@@ -72,6 +72,36 @@ const orderFormStatus = document.getElementById("orderFormStatus");
 const orderProgressLabel = document.getElementById("orderProgressLabel");
 const orderProgressCount = document.getElementById("orderProgressCount");
 const orderProgressBar = document.getElementById("orderProgressBar");
+const orderStepCards = Array.from(document.querySelectorAll("#order .order-steps .step"));
+const orderEventInput = document.getElementById("event");
+const orderEventChips = Array.from(document.querySelectorAll(".event-chip"));
+const earliestDateHint = document.getElementById("earliestDateHint");
+const summaryName = document.getElementById("summaryName");
+const summaryEvent = document.getElementById("summaryEvent");
+const summarySize = document.getElementById("summarySize");
+const summaryDate = document.getElementById("summaryDate");
+const summaryBudget = document.getElementById("summaryBudget");
+
+const formatSummaryDate = (value) => {
+  if (!value) return "-";
+  const parsed = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toLocaleDateString("ms-MY", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+};
+
+const updateOrderSummary = () => {
+  if (!orderForm) return;
+  const data = new FormData(orderForm);
+  if (summaryName) summaryName.textContent = String(data.get("name") || "-");
+  if (summaryEvent) summaryEvent.textContent = String(data.get("event") || "-");
+  if (summarySize) summarySize.textContent = String(data.get("size") || "-");
+  if (summaryDate) summaryDate.textContent = formatSummaryDate(String(data.get("date") || ""));
+  if (summaryBudget) summaryBudget.textContent = String(data.get("budget") || "-");
+};
 
 const updateOrderProgress = () => {
   if (!orderForm) return;
@@ -96,31 +126,71 @@ const updateOrderProgress = () => {
         ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
         : "Langkah 1/2: Isi maklumat wajib";
   }
+
+  const flowStage = filledCount === 0 ? 1 : filledCount < totalCount ? 2 : 3;
+  orderStepCards.forEach((stepCard, index) => {
+    const stepIndex = index + 1;
+    stepCard.classList.toggle("is-active", stepIndex === flowStage);
+    stepCard.classList.toggle("is-complete", stepIndex < flowStage);
+  });
 };
 
 if (orderForm) {
   const requiredFields = orderForm.querySelectorAll("input[required], select[required], textarea[required]");
+
+  orderEventChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      if (!orderEventInput) return;
+      const eventValue = chip.getAttribute("data-event-value") || "";
+      orderEventInput.value = eventValue;
+      orderEventInput.dispatchEvent(new Event("input", { bubbles: true }));
+      orderEventInput.focus();
+      orderEventChips.forEach((item) => {
+        item.classList.toggle("is-active", item === chip);
+      });
+    });
+  });
+
+  if (orderEventInput) {
+    orderEventInput.addEventListener("input", () => {
+      const current = orderEventInput.value.trim().toLowerCase();
+      orderEventChips.forEach((chip) => {
+        const value = (chip.getAttribute("data-event-value") || "").toLowerCase();
+        chip.classList.toggle("is-active", current !== "" && current === value);
+      });
+    });
+  }
+
   requiredFields.forEach((field) => {
     field.addEventListener("input", () => {
       field.classList.remove("field-error");
+      if (orderFormStatus) orderFormStatus.classList.remove("show", "error");
+      updateOrderSummary();
       updateOrderProgress();
     });
     field.addEventListener("change", () => {
       field.classList.remove("field-error");
+      if (orderFormStatus) orderFormStatus.classList.remove("show", "error");
+      updateOrderSummary();
       updateOrderProgress();
     });
   });
 
+  updateOrderSummary();
   updateOrderProgress();
 
   orderForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     let hasError = false;
+    let firstErrorField = null;
     requiredFields.forEach((field) => {
       const isEmpty = String(field.value || "").trim() === "";
       field.classList.toggle("field-error", isEmpty);
-      if (isEmpty) hasError = true;
+      if (isEmpty) {
+        hasError = true;
+        if (!firstErrorField) firstErrorField = field;
+      }
     });
 
     if (hasError) {
@@ -129,6 +199,10 @@ if (orderForm) {
         orderFormStatus.classList.add("show", "error");
         orderFormStatus.classList.remove("success");
       }
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
+        firstErrorField.focus({ preventScroll: true });
+      }
       updateOrderProgress();
       return;
     }
@@ -136,6 +210,7 @@ if (orderForm) {
     const data = new FormData(orderForm);
     const name = data.get("name");
     const eventType = data.get("event");
+    const size = data.get("size");
     const date = data.get("date");
     const budget = data.get("budget");
     const notes = data.get("notes");
@@ -143,6 +218,7 @@ if (orderForm) {
     const message =
       `Hai Anys Maniz! Saya ${name}.` +
       `\nJenis majlis: ${eventType}` +
+      `\nSaiz kek: ${size}` +
       `\nTarikh: ${date}` +
       `\nBajet: ${budget}` +
       (notes ? `\nNota: ${notes}` : "");
@@ -155,7 +231,8 @@ if (orderForm) {
 
     trackEvent("order_form_submit", {
       event_type: String(eventType || ""),
-      budget: String(budget || "")
+      budget: String(budget || ""),
+      size: String(size || "")
     });
 
     const waUrl = buildWhatsAppUrl(message);
@@ -269,6 +346,9 @@ if (dateInput) {
   const minDate = new Date();
   minDate.setDate(minDate.getDate() + OWNER_SLOT_SETTINGS.startAfterDays);
   dateInput.min = formatDateValue(minDate);
+  if (earliestDateHint) {
+    earliestDateHint.textContent = `Tarikh paling awal: ${formatSummaryDate(formatDateValue(minDate))}`;
+  }
 }
 
 const galleryItems = document.querySelectorAll(".gallery-item");

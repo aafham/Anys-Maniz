@@ -3804,3 +3804,121 @@ body {
     gap: 4px;
   }
 }
+
+/* Order conversion refinements v23 */
+#order .step {
+  min-height: 178px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+#order .step.is-active {
+  border-color: rgba(111, 81, 70, 0.38);
+  box-shadow: 0 14px 28px rgba(63, 51, 48, 0.12);
+  transform: translateY(-2px);
+}
+
+#order .step.is-complete {
+  border-color: rgba(77, 149, 106, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fffa 100%);
+}
+
+#order .step.is-complete .step-num {
+  background: #d8f3dc;
+  border-color: rgba(77, 149, 106, 0.42);
+}
+
+#order .order-response-time {
+  margin: -2px 0 0;
+  font-size: 12px;
+  color: #6d554e;
+}
+
+#order .event-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#order .event-chip {
+  border: 1px solid rgba(111, 81, 70, 0.2);
+  background: #fff8f5;
+  color: #5d4036;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+#order .event-chip:hover {
+  background: #fbece7;
+}
+
+#order .event-chip.is-active {
+  background: linear-gradient(120deg, #6f5146 0%, #8e6b60 58%, #6f5146 100%);
+  border-color: rgba(111, 81, 70, 0.5);
+  color: #fff;
+}
+
+#order #earliestDateHint {
+  font-size: 12px;
+  color: #6d554e;
+}
+
+#order .order-live-summary {
+  border: 1px solid rgba(111, 81, 70, 0.14);
+  background: #fff8f5;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+#order .order-live-summary h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+#order .order-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 12px;
+}
+
+#order .order-summary-grid p {
+  margin: 0;
+  font-size: 13px;
+}
+
+#order .order-summary-grid strong {
+  font-weight: 700;
+  color: #3b2c28;
+}
+
+#order .order-submit-btn {
+  min-width: 220px;
+}
+
+@media (max-width: 980px) {
+  #order .step {
+    min-height: 0;
+  }
+
+  #order .order-summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  #order .order-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #order .order-submit-btn {
+    width: 100%;
+    position: sticky;
+    bottom: 10px;
+    z-index: 8;
+    box-shadow: 0 12px 26px rgba(63, 51, 48, 0.18);
+  }
+}

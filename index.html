@@ -304,39 +304,39 @@
             <div class="order-steps-wrap">
               <p class="order-kicker">5 langkah ringkas</p>
               <ol class="order-steps" aria-label="Langkah tempahan">
-                <li class="step">
+                <li class="step is-active" data-step="1">
                   <span class="step-num">1</span>
                   <div>
                     <h3>Pilih jenis kek</h3>
                     <p>Pilih dari menu atau beritahu kategori yang anda mahu.</p>
                   </div>
                 </li>
-                <li class="step">
+                <li class="step" data-step="2">
                   <span class="step-num">2</span>
                   <div>
                     <h3>Hubungi WhatsApp</h3>
                     <p>Hantar detail ringkas seperti tarikh, bajet, dan tema.</p>
                   </div>
                 </li>
-                <li class="step">
+                <li class="step" data-step="3">
                   <span class="step-num">3</span>
                   <div>
                     <h3>Sahkan pilihan</h3>
-                    <p>Finalize design, saiz, rasa, dan harga bersama owner.</p>
+                    <p>Sahkan design, saiz, rasa, dan harga bersama owner.</p>
                   </div>
                 </li>
-                <li class="step">
+                <li class="step" data-step="4">
                   <span class="step-num">4</span>
                   <div>
-                    <h3>Bayar deposit</h3>
-                    <p>Deposit diperlukan untuk lock slot tarikh tempahan.</p>
+                    <h3>Bayar deposit 50%</h3>
+                    <p>Deposit 50% diperlukan untuk lock slot tarikh tempahan.</p>
                   </div>
                 </li>
-                <li class="step">
+                <li class="step" data-step="5">
                   <span class="step-num">5</span>
                   <div>
                     <h3>Kek siap</h3>
-                    <p>Ambil sendiri atau delivery ikut pilihan yang dipersetujui.</p>
+                    <p>Pickup atau delivery ikut slot yang dipersetujui.</p>
                   </div>
                 </li>
               </ol>
@@ -372,6 +372,7 @@
               <li>Boleh custom ikut tema majlis</li>
               <li>Boleh terus lock tarikh jika slot ada</li>
             </ul>
+            <p class="order-response-time">Kebiasaan balas dalam 5-15 minit (waktu operasi).</p>
             <a class="btn" href="https://wa.me/60123456789">Tempah di WhatsApp</a>
           </aside>
         </div>
@@ -383,7 +384,7 @@
             <div class="order-form-progress" aria-live="polite">
               <div class="order-form-progress-top">
                 <span id="orderProgressLabel">Langkah 1/2: Isi maklumat wajib</span>
-                <strong id="orderProgressCount">0/4 lengkap</strong>
+                <strong id="orderProgressCount">0/5 lengkap</strong>
               </div>
               <div class="order-form-progress-bar" aria-hidden="true"><span id="orderProgressBar"></span></div>
             </div>
@@ -395,12 +396,30 @@
             </div>
             <div class="field">
               <label for="event">Jenis Majlis</label>
+              <div class="event-chip-group" role="group" aria-label="Pilih jenis majlis cepat">
+                <button class="event-chip" type="button" data-event-value="Hari Jadi">Hari Jadi</button>
+                <button class="event-chip" type="button" data-event-value="Kahwin">Kahwin</button>
+                <button class="event-chip" type="button" data-event-value="Tunang">Tunang</button>
+                <button class="event-chip" type="button" data-event-value="Corporate">Corporate</button>
+              </div>
               <input id="event" name="event" type="text" placeholder="Hari jadi / Kahwin / Tunang" required />
+              <small>Pilih chip untuk isi pantas atau tulis sendiri.</small>
+            </div>
+            <div class="field">
+              <label for="size">Saiz Kek</label>
+              <select id="size" name="size" required>
+                <option value="" selected disabled>Pilih saiz</option>
+                <option value="1kg">1kg</option>
+                <option value="1.5kg">1.5kg</option>
+                <option value="2kg">2kg</option>
+                <option value="Custom">Custom / belum pasti</option>
+              </select>
             </div>
             <div class="field">
               <label for="date">Tarikh diperlukan</label>
               <input id="date" name="date" type="date" required />
               <small>Minimum 3 hari dari tarikh tempahan.</small>
+              <small id="earliestDateHint">Tarikh paling awal: -</small>
             </div>
             <div class="field">
               <label for="budget">Bajet Anggaran</label>
@@ -416,7 +435,17 @@
               <label for="notes">Nota / Keinginan khas</label>
               <textarea id="notes" name="notes" rows="3" placeholder="Tema, warna, rasa, size"></textarea>
             </div>
-            <button class="btn" type="submit">Tempah di WhatsApp</button>
+            <article class="order-live-summary full" aria-live="polite">
+              <h4>Ringkasan Tempahan</h4>
+              <div class="order-summary-grid">
+                <p>Nama: <strong id="summaryName">-</strong></p>
+                <p>Jenis Majlis: <strong id="summaryEvent">-</strong></p>
+                <p>Saiz Kek: <strong id="summarySize">-</strong></p>
+                <p>Tarikh: <strong id="summaryDate">-</strong></p>
+                <p>Bajet: <strong id="summaryBudget">-</strong></p>
+              </div>
+            </article>
+            <button class="btn order-submit-btn" type="submit">Tempah di WhatsApp</button>
             <p id="orderFormStatus" class="form-status" role="status" aria-live="polite"></p>
             <p class="form-note">Kami akan balas secepat mungkin untuk sahkan design dan harga.</p>
           </form>
