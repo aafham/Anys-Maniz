@@ -1,5 +1,18 @@
 const WHATSAPP_NUMBER = "60123456789";
 
+// OWNER SLOT SETTINGS
+// Owner hanya perlu edit bahagian ini untuk ubah slot.
+const OWNER_SLOT_SETTINGS = {
+  totalDays: 12,
+  startAfterDays: 3,
+  fullDates: [
+    // "2026-03-05",
+  ],
+  limitedDates: [
+    // "2026-03-03",
+  ]
+};
+
 const formatDateValue = (date) => {
   const yyyy = date.getFullYear();
   const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -101,7 +114,7 @@ if (backToTopButton) {
 const dateInput = document.getElementById("date");
 if (dateInput) {
   const minDate = new Date();
-  minDate.setDate(minDate.getDate() + 3);
+  minDate.setDate(minDate.getDate() + OWNER_SLOT_SETTINGS.startAfterDays);
   dateInput.min = formatDateValue(minDate);
 }
 
@@ -327,10 +340,15 @@ if (testiNext && testiCards.length) {
 
 const availabilitySlots = document.getElementById("availabilitySlots");
 if (availabilitySlots) {
-  const baseDate = new Date();
-  baseDate.setDate(baseDate.getDate() + 3);
+  const totalDays = Number(OWNER_SLOT_SETTINGS.totalDays) || 12;
+  const startAfterDays = Number(OWNER_SLOT_SETTINGS.startAfterDays) || 3;
+  const fullDatesSet = new Set(OWNER_SLOT_SETTINGS.fullDates || []);
+  const limitedDatesSet = new Set(OWNER_SLOT_SETTINGS.limitedDates || []);
 
-  for (let i = 0; i < 12; i += 1) {
+  const baseDate = new Date();
+  baseDate.setDate(baseDate.getDate() + startAfterDays);
+
+  for (let i = 0; i < totalDays; i += 1) {
     const slotDate = new Date(baseDate);
     slotDate.setDate(baseDate.getDate() + i);
     const value = formatDateValue(slotDate);
@@ -342,11 +360,11 @@ if (availabilitySlots) {
 
     let status = "available";
     let text = "Slot Ada";
-    if (i % 6 === 0) {
+    if (limitedDatesSet.has(value)) {
       status = "limited";
       text = "Cepat Penuh";
     }
-    if (i % 8 === 0) {
+    if (fullDatesSet.has(value)) {
       status = "full";
       text = "Penuh";
     }
