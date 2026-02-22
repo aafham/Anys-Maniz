@@ -9,6 +9,7 @@ const formatDateValue = (date) => {
 
 const buildWhatsAppUrl = (message) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
 const orderForm = document.getElementById("orderForm");
 
 if (orderForm) {
@@ -29,8 +30,7 @@ if (orderForm) {
       `\nBajet: ${budget}` +
       (notes ? `\nNota: ${notes}` : "");
 
-    const url = buildWhatsAppUrl(message);
-    window.open(url, "_blank");
+    window.open(buildWhatsAppUrl(message), "_blank");
   });
 }
 
@@ -74,6 +74,7 @@ navLinks.forEach((link) => {
 const topbar = document.querySelector(".topbar");
 const backToTopButton = document.querySelector(".back-to-top");
 const progressBar = document.querySelector(".scroll-progress span");
+
 if (topbar) {
   const onScroll = () => {
     topbar.classList.toggle("scrolled", window.scrollY > 10);
@@ -86,6 +87,7 @@ if (topbar) {
       progressBar.style.width = `${Math.min(Math.max(ratio, 0), 100)}%`;
     }
   };
+
   window.addEventListener("scroll", onScroll);
   onScroll();
 }
@@ -122,17 +124,21 @@ if (galleryItems.length) {
     item.addEventListener("click", () => {
       const src = item.getAttribute("data-src");
       const alt = item.getAttribute("data-alt") || "Galeri kek";
-      if (!src) return;
+      if (!src || !lightboxImg) return;
       lightboxImg.src = src;
       lightboxImg.alt = alt;
       lightbox.classList.add("open");
     });
   });
 
-  closeBtn.addEventListener("click", closeLightbox);
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeLightbox);
+  }
+
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) closeLightbox();
   });
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeLightbox();
   });
@@ -187,17 +193,6 @@ if (revealTargets.length) {
 
 const filterButtons = document.querySelectorAll(".filter-btn");
 const menuCards = document.querySelectorAll(".menu-card");
-const selectedCake = document.getElementById("selectedCake");
-const stickyOrderLink = document.getElementById("stickyOrderLink");
-const miniOrderButtons = document.querySelectorAll(".mini-order-btn");
-
-const resetStickyOrder = () => {
-  if (!selectedCake || !stickyOrderLink) return;
-  selectedCake.textContent = "Belum dipilih";
-  stickyOrderLink.href = "#menu";
-  stickyOrderLink.textContent = "Pilih Kek Dulu";
-  miniOrderButtons.forEach((btn) => btn.classList.remove("active"));
-};
 
 if (filterButtons.length && menuCards.length) {
   filterButtons.forEach((button) => {
@@ -217,14 +212,6 @@ if (filterButtons.length && menuCards.length) {
         const visible = filter === "all" || category.includes(filter);
         card.classList.toggle("hidden", !visible);
       });
-
-      const selectedButton = document.querySelector(".mini-order-btn.active");
-      if (selectedButton) {
-        const selectedCard = selectedButton.closest(".menu-card");
-        if (selectedCard && selectedCard.classList.contains("hidden")) {
-          resetStickyOrder();
-        }
-      }
     });
   });
 }
@@ -237,6 +224,7 @@ if (faqSearch && faqItems.length) {
   faqSearch.addEventListener("input", () => {
     const query = faqSearch.value.trim().toLowerCase();
     let visibleCount = 0;
+
     faqItems.forEach((item) => {
       const text = item.textContent ? item.textContent.toLowerCase() : "";
       const match = !query || text.includes(query);
@@ -245,6 +233,7 @@ if (faqSearch && faqItems.length) {
       if (match && query) item.setAttribute("open", "");
       if (!query) item.removeAttribute("open");
     });
+
     if (faqEmptyState) faqEmptyState.hidden = visibleCount !== 0;
   });
 }
@@ -299,12 +288,20 @@ if (testiCards.length) {
     testiSection.addEventListener("focusout", () => {
       testiPaused = false;
     });
-    testiSection.addEventListener("touchstart", () => {
-      testiPaused = true;
-    }, { passive: true });
-    testiSection.addEventListener("touchend", () => {
-      testiPaused = false;
-    }, { passive: true });
+    testiSection.addEventListener(
+      "touchstart",
+      () => {
+        testiPaused = true;
+      },
+      { passive: true }
+    );
+    testiSection.addEventListener(
+      "touchend",
+      () => {
+        testiPaused = false;
+      },
+      { passive: true }
+    );
   }
 
   document.addEventListener("visibilitychange", () => {
@@ -328,34 +325,11 @@ if (testiNext && testiCards.length) {
   });
 }
 
-if (miniOrderButtons.length && selectedCake && stickyOrderLink) {
-  miniOrderButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".menu-card");
-      if (!card) return;
-      miniOrderButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-
-      const cakeName = card.querySelector("h4")?.textContent?.trim() || "Kek pilihan";
-      const cakePrice = card.querySelector("span")?.textContent?.trim() || "";
-      selectedCake.textContent = `${cakeName} (${cakePrice})`;
-
-      const message =
-        `Hai Anys Maniz! Saya nak tempah ${cakeName}.` +
-        (cakePrice ? `\n${cakePrice}` : "") +
-        `\nBoleh bantu semak slot terdekat?`;
-      stickyOrderLink.href = buildWhatsAppUrl(message);
-      stickyOrderLink.textContent = "Tempah Pilihan Ini";
-    });
-  });
-}
-
-
-
 const availabilitySlots = document.getElementById("availabilitySlots");
 if (availabilitySlots) {
   const baseDate = new Date();
   baseDate.setDate(baseDate.getDate() + 3);
+
   for (let i = 0; i < 12; i += 1) {
     const slotDate = new Date(baseDate);
     slotDate.setDate(baseDate.getDate() + i);
@@ -414,22 +388,17 @@ if (availabilitySlots) {
 }
 
 const bundleButtons = document.querySelectorAll(".bundle-order-btn");
-if (bundleButtons.length && selectedCake && stickyOrderLink) {
+if (bundleButtons.length) {
   bundleButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const bundleName = button.getAttribute("data-name") || "Pakej";
       const bundlePrice = button.getAttribute("data-price") || "";
-      selectedCake.textContent = `${bundleName} (${bundlePrice})`;
 
       const message =
         `Hai Anys Maniz! Saya berminat dengan pakej ${bundleName}.` +
         (bundlePrice ? `\nHarga: ${bundlePrice}` : "") +
         `\nBoleh semak slot terdekat?`;
-      const waUrl = buildWhatsAppUrl(message);
-      stickyOrderLink.href = waUrl;
-      stickyOrderLink.textContent = "Tempah Pakej Ini";
-      window.open(waUrl, "_blank");
+      window.open(buildWhatsAppUrl(message), "_blank");
     });
   });
 }
-
