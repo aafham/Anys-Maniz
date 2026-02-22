@@ -2799,3 +2799,46 @@ a:focus-visible {
     background: linear-gradient(90deg, transparent, rgba(111, 81, 70, 0.16), transparent);
   }
 }
+/* Contact area balance fix v10 */
+@media (min-width: 1200px) {
+  #contact .contact-wrap {
+    max-width: 1080px;
+    padding: 0 18px;
+  }
+
+  #contact .contact-wide {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  #contact .map-panel {
+    width: 100%;
+    max-width: 360px;
+    justify-self: end;
+  }
+
+  #contact .map-embed iframe {
+    height: 248px;
+  }
+
+  .mini-cta {
+    max-width: 1080px;
+    margin: 22px auto 34px;
+  }
+
+  .mini-cta-inner {
+    padding: 18px 22px;
+    align-items: center;
+  }
+
+  .mini-cta-actions {
+    justify-content: flex-end;
+  }
+
+  .footer {
+    max-width: 1080px;
+    margin: 30px auto 0;
+    padding: 20px 0 14px;
+  }
+}
