@@ -2869,3 +2869,15 @@ a:focus-visible {
     display: block;
   }
 }
+/* Overflow safety v12 */
+html,
+body {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
