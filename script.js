@@ -142,18 +142,30 @@ navLinks.forEach((link) => {
   });
 });
 
-document.querySelectorAll("[data-wa-link]").forEach((link) => {
+document.querySelectorAll('a[href*="wa.me"], [data-wa-link]').forEach((link) => {
   if (!(link instanceof HTMLAnchorElement)) return;
   link.href = buildWhatsAppBaseUrl();
 });
 
-document.querySelectorAll("[data-instagram-link]").forEach((link) => {
+document.querySelectorAll('a[href*="instagram.com"], [data-instagram-link]').forEach((link) => {
   if (!(link instanceof HTMLAnchorElement)) return;
   link.href = OWNER_CONTACT_SETTINGS.instagramUrl;
 });
 
 document.querySelectorAll("[data-phone-display]").forEach((item) => {
   item.textContent = OWNER_CONTACT_SETTINGS.whatsappDisplay;
+});
+
+document.querySelectorAll('a[href*="wa.me"], a[href="#order"]').forEach((link) => {
+  if (!(link instanceof HTMLAnchorElement)) return;
+  link.addEventListener("click", () => {
+    const sectionId = link.closest("section[id]")?.getAttribute("id") || "global";
+    const eventName = link.href.includes("wa.me") ? "whatsapp_click" : "cta_to_order_click";
+    trackEvent(eventName, {
+      location: sectionId,
+      label: (link.textContent || "").trim()
+    });
+  });
 });
 
 const topbar = document.querySelector(".topbar");
