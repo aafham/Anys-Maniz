@@ -1,34 +1,38 @@
-# Anys Maniz Website
+﻿# Anys Maniz Website
 
-Landing page statik untuk kedai kek `Anys Maniz @ Homebaker`.
+Website landing page statik untuk kedai kek `Anys Maniz @ Homebaker`.
 
-## Tujuan Website
+## Apa Website Ini Buat
 
-Website ini dibina untuk:
-- perkenalkan brand dan produk
-- mudahkan pelanggan pilih menu dan pakej
-- percepat tempahan melalui WhatsApp
-- tingkatkan conversion melalui CTA yang konsisten
+Website ini bantu pelanggan untuk:
+- kenal brand dan servis Anys Maniz
+- tengok menu kek ikut kategori
+- semak slot tempahan awal
+- isi borang tempahan ringkas
+- terus tempah melalui WhatsApp
+
+Website ini juga bantu owner untuk:
+- update nombor WhatsApp dan Instagram dari satu tempat
+- update slot penuh/cepat penuh tanpa ubah HTML
+- track tindakan penting pelanggan (CTA, form, slot, gallery)
 
 ## Ciri Utama
 
-- Responsive layout (desktop, tablet, mobile)
-- Sticky top navigation + mobile hamburger menu
-- Active nav state ikut section semasa scroll
+- Responsive UI untuk desktop, tablet, mobile
+- Sticky header + mobile hamburger menu
+- Active nav highlight ikut section semasa scroll
 - Scroll progress bar + back-to-top button
+- Hero, About, Menu, Pakej, Tempahan, Slot, FAQ, Testimoni, Galeri, Contact
 - Penapis kategori menu
-- Bundle section dengan butang tempah terus
-- Availability slot owner-editable (tarikh penuh / cepat penuh)
-- Borang tempahan ringkas + mesej auto ke WhatsApp
-- Form submit feedback: "Membuka WhatsApp..."
-- FAQ search + FAQ tambahan (delivery, urgent, perubahan saat akhir)
-- Testimoni dengan auto-rotate di mobile + nav control
+- Borang tempahan auto bina mesej WhatsApp
+- Slot tempahan auto-generate berdasarkan setting owner
+- Slot section boleh collapse (buka/tutup)
+- FAQ boleh collapse (buka/tutup) + carian kata kunci
+- Testimoni dengan controls
 - Gallery lightbox
-- Tracking event conversion (CTA, WhatsApp click, form submit, filter, slot, bundle, gallery)
-- SEO asas:
-  - meta description
-  - Open Graph tags
-  - LocalBusiness JSON-LD (`sameAs`, `areaServed`, `priceRange`)
+- CTA konsisten ke WhatsApp
+- Tracking event untuk conversion
+- SEO asas (meta description, Open Graph, JSON-LD LocalBusiness)
 
 ## Teknologi
 
@@ -44,22 +48,23 @@ Anys-Maniz/
 |-- index.html
 |-- style.css
 |-- script.js
+|-- README.md
 `-- assets/
     `-- images/
 ```
 
 ## Cara Jalankan
 
-1. Buka `index.html` dalam browser.
+1. Buka `index.html` terus di browser.
 2. Atau guna local server (disyorkan):
-   - VS Code Live Server
-   - `python -m http.server 8080`
+- VS Code Live Server
+- `python -m http.server 8080`
 
-## Owner Settings (Mudah Edit)
+## Panduan Owner: Bahagian Yang Selalu Diedit
 
-### 1) Maklumat contact + link sosial
+### 1) Contact dan sosial
 
-Edit di atas `script.js`:
+Edit di bahagian atas `script.js`:
 
 ```js
 const OWNER_CONTACT_SETTINGS = {
@@ -69,10 +74,10 @@ const OWNER_CONTACT_SETTINGS = {
 };
 ```
 
-Kesan:
-- semua link `wa.me` di HTML auto guna nombor ini
-- nombor display di contact section auto ikut `whatsappDisplay`
-- link Instagram auto ikut `instagramUrl`
+Kesan perubahan:
+- semua link `wa.me` automatik ikut nombor baru
+- paparan nombor telefon ikut `whatsappDisplay`
+- link Instagram automatik ikut `instagramUrl`
 
 ### 2) Slot tempahan
 
@@ -91,49 +96,64 @@ const OWNER_SLOT_SETTINGS = {
 };
 ```
 
-Format tarikh mesti `YYYY-MM-DD`.
+Maksud field:
+- `totalDays`: berapa hari nak dipaparkan pada kad slot
+- `startAfterDays`: mula slot selepas berapa hari dari hari semasa
+- `fullDates`: tarikh penuh
+- `limitedDates`: tarikh cepat penuh
+
+Format tarikh wajib `YYYY-MM-DD`.
 
 ### 3) Google Analytics 4
 
-Edit meta ini di `index.html`:
+Edit meta tag di `index.html`:
 
 ```html
 <meta name="ga4-measurement-id" content="G-XXXXXXXXXX" />
 ```
 
-Tukar ke ID sebenar contoh `G-ABC123XYZ9`.
+Tukar ke ID sebenar, contoh `G-ABC123XYZ9`.
 
-Bila valid ID dimasukkan:
-- script akan auto load GA4
-- event conversion akan dihantar
+### 4) Content teks (owner boleh edit terus)
 
-## Event Tracking Yang Disokong
+Edit dalam `index.html` untuk bahagian:
+- hero (`#home`)
+- tentang (`#about`)
+- menu (`#menu`)
+- pakej (`#bundle`)
+- FAQ (`#faq`)
+- contact (`#contact`)
+
+Tip: selepas ubah teks, buat hard refresh browser (`Ctrl + F5`) untuk pastikan CSS/JS cache lama tidak ganggu.
+
+## Event Tracking Yang Direkod
 
 - `whatsapp_click`
 - `cta_to_order_click`
 - `order_form_submit`
 - `menu_filter_select`
 - `slot_date_select`
+- `availability_toggle`
+- `faq_toggle`
 - `bundle_order_click`
 - `gallery_open`
 - `testimonial_nav_click`
 
-## Mobile UI Improvements (Dah Siap)
+## Rutin Update Mingguan (Disyorkan)
 
-- Hero CTA jadi full-width di mobile
-- Menu filter jadi horizontal scroll (lebih mudah tap)
-- Form dan CTA section disusun single-column
-- Card spacing dan radius dikecilkan untuk skrin kecil
-- Availability/testimonial grid stabil di mobile
-- Navigation panel mobile lebih kemas (scrollable jika panjang)
+1. update `fullDates` dan `limitedDates`
+2. semak harga/promo dalam `index.html`
+3. semak link WhatsApp dan Instagram masih betul
+4. semak paparan mobile (hero, CTA, FAQ, contact)
+5. tambah 1-2 gambar/testimoni baru jika ada
 
-## Cadangan Operasi Seterusnya
+## Nota Maintenance
 
-- guna gambar WebP/AVIF yang lebih ringan untuk semua image > 300KB
-- tambah testimoni sebenar bergambar setiap bulan
-- update `fullDates`/`limitedDates` setiap minggu
+- Jika nampak simbol pelik, pastikan fail disimpan sebagai UTF-8.
+- Jangan ubah ID penting tanpa semak `script.js`:
+  - `orderForm`, `faqToggle`, `faqContent`, `availabilityToggle`, `availabilityContent`
+- Untuk prestasi lebih baik, guna imej WebP/AVIF dengan saiz ringan.
 
 ## Pemilikan
 
-Website ini disediakan untuk kegunaan perniagaan `Anys Maniz @ Homebaker`.
-
+Website ini dibina untuk kegunaan perniagaan `Anys Maniz @ Homebaker`.
