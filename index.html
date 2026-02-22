@@ -3,6 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Anys Maniz @ Homebaker di Sungai Petani menyediakan kek homemade halal untuk hari jadi, kahwin, tunang dan custom design. Tempah mudah melalui WhatsApp." />
+  <meta property="og:title" content="Anys Maniz @ Homebaker | Kek Homemade Sungai Petani" />
+  <meta property="og:description" content="Tempah kek homemade halal untuk majlis anda. Fresh, cantik, dan boleh custom tema." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/image1-3-scaled.webp" />
+  <meta property="og:locale" content="ms_MY" />
   <title>Anys Maniz @ Homebaker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,6 +16,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">Terus ke kandungan utama</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <div class="page">
     <header class="topbar">
       <div class="logo">
@@ -19,22 +27,29 @@
           <span>@ Homebaker</span>
         </div>
       </div>
-      <nav class="nav">
+      <button class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="siteNav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="siteNav" class="nav">
         <a href="#home">Home</a>
         <a href="#about">Tentang</a>
         <a href="#menu">Menu</a>
+        <a href="#bundle">Pakej</a>
         <a href="#order">Tempahan</a>
+        <a href="#availability">Slot</a>
         <a href="#testi">Testimoni</a>
         <a href="#gallery">Galeri</a>
         <a href="#contact">Hubungi</a>
       </nav>
       <div class="topbar-cta">
         <a class="btn ghost" href="#menu">Lihat Menu Kek</a>
-        <a class="btn" href="#order">Tempah Sekarang</a>
+        <a class="btn" href="#order">Tempah di WhatsApp</a>
       </div>
     </header>
 
-    <main>
+    <main id="mainContent">
       <section id="home" class="hero section">
         <div class="hero-copy">
           <p class="eyebrow">Halal • Homemade • Fresh</p>
@@ -44,9 +59,12 @@
             Sesuai untuk hari jadi, perkahwinan, pertunangan, dan event kecil yang bermakna.
           </p>
           <div class="hero-actions">
-            <a class="btn" href="#order">Tempah Sekarang</a>
+            <a class="btn" href="#order">Tempah di WhatsApp</a>
             <a class="btn ghost" href="#menu">Lihat Menu Kek</a>
           </div>
+          <a class="scroll-hint" href="#menu" aria-label="Skrol ke menu">
+            Scroll ke menu <span>↓</span>
+          </a>
           <div class="trust">
             <div>
               <strong>5+ Tahun</strong>
@@ -60,12 +78,20 @@
               <strong>5.0</strong>
               <span>Rating pelanggan</span>
             </div>
+            <div>
+              <strong>120+</strong>
+              <span>Tempahan bulan ini</span>
+            </div>
+          </div>
+          <div class="hero-proof">
+            <p>"Kek cantik, rasa premium, servis laju."</p>
+            <strong>Nur Aina, Jan 2026</strong>
           </div>
         </div>
         <div class="hero-visual">
           <div class="hero-media">
             <div class="cake-stack hero-photo">
-              <img src="assets/images/image1-3-scaled.webp" alt="Kek signature Anys Maniz" />
+              <img src="assets/images/image1-3-scaled.webp" alt="Kek signature Anys Maniz" fetchpriority="high" />
             </div>
             <div class="hero-card">
               <h3>Bestseller Minggu Ini</h3>
@@ -76,36 +102,10 @@
         </div>
       </section>
 
-      <section class="bestseller section alt">
-        <div class="section-head">
-          <h2>Pilihan Kek Bestseller</h2>
-          <p>Kegemaran pelanggan yang sentiasa habis ditempah.</p>
-        </div>
-        <div class="card-grid">
-          <article class="product-card">
-            <div class="img-box velvet">
-              <img src="assets/images/R.jpg" alt="Red Velvet Buttercream" />
-            </div>
-            <h4>Red Velvet Buttercream</h4>
-            <p>Tekstur moist, frosting gebu, sesuai untuk semua majlis.</p>
-            <span>Harga bermula dari RM120</span>
-          </article>
-          <article class="product-card">
-            <div class="img-box choco">
-              <img src="assets/images/history-of-belgian-chocolate-guylian.whqc_1426x713q80.jpg" alt="Belgian Chocolate" />
-            </div>
-            <h4>Belgian Chocolate</h4>
-            <p>Rasa coklat pekat, dekorasi minimal yang elegan.</p>
-            <span>Harga bermula dari RM130</span>
-          </article>
-          <article class="product-card">
-            <div class="img-box berry">
-              <img src="assets/images/fullsizeoutput_78cd.jpeg" alt="Berry Vanilla" />
-            </div>
-            <h4>Berry Vanilla</h4>
-            <p>Vanilla lembut dengan topping buah beri segar.</p>
-            <span>Harga bermula dari RM110</span>
-          </article>
+      <section class="promo-strip section alt">
+        <div class="promo-inner">
+          <p><strong>Promosi Minggu Ini:</strong> Free 6 cupcakes mini untuk tempahan kek 2kg ke atas (slot terhad).</p>
+          <a class="btn" href="#order">Claim Promo</a>
         </div>
       </section>
 
@@ -130,7 +130,7 @@
         <div class="about-visual">
           <div class="photo-frame">
             <div class="img-box soft">
-              <img src="assets/images/image1-3-scaled.webp" alt="Proses kek homemade Anys Maniz" />
+              <img src="assets/images/image1-3-scaled.webp" alt="Proses kek homemade Anys Maniz" loading="lazy" decoding="async" />
             </div>
             <div class="caption">Dibuat dari dapur homebaker, dengan standard profesional.</div>
           </div>
@@ -142,47 +142,116 @@
           <h2>Menu Kek / Produk</h2>
           <p>Pilih kategori yang sesuai untuk majlis anda.</p>
         </div>
+        <div class="menu-filter" role="tablist" aria-label="Penapis kategori menu">
+          <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">Semua</button>
+          <button class="filter-btn" type="button" data-filter="bestseller" aria-pressed="false">Bestseller</button>
+          <button class="filter-btn" type="button" data-filter="birthday" aria-pressed="false">Hari Jadi</button>
+          <button class="filter-btn" type="button" data-filter="wedding" aria-pressed="false">Kahwin / Tunang</button>
+          <button class="filter-btn" type="button" data-filter="custom" aria-pressed="false">Custom</button>
+          <button class="filter-btn" type="button" data-filter="dessert" aria-pressed="false">Dessert</button>
+        </div>
         <div class="menu-grid">
-          <article class="menu-card">
+          <article class="menu-card" data-category="bestseller birthday">
+            <span class="badge">Bestseller</span>
+            <div class="img-box velvet">
+              <img src="assets/images/R.jpg" alt="Red Velvet Buttercream" loading="lazy" decoding="async" />
+            </div>
+            <h4>Red Velvet Buttercream</h4>
+            <p>Tekstur moist, frosting gebu, sesuai untuk semua majlis.</p>
+            <span>Harga bermula dari RM120</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
+          </article>
+          <article class="menu-card" data-category="bestseller custom">
+            <span class="badge">Bestseller</span>
+            <div class="img-box choco">
+              <img src="assets/images/history-of-belgian-chocolate-guylian.whqc_1426x713q80.jpg" alt="Belgian Chocolate" loading="lazy" decoding="async" />
+            </div>
+            <h4>Belgian Chocolate</h4>
+            <p>Rasa coklat pekat, dekorasi minimal yang elegan.</p>
+            <span>Harga bermula dari RM130</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
+          </article>
+          <article class="menu-card" data-category="bestseller dessert">
+            <span class="badge">Bestseller</span>
+            <div class="img-box berry">
+              <img src="assets/images/fullsizeoutput_78cd.jpeg" alt="Berry Vanilla" loading="lazy" decoding="async" />
+            </div>
+            <h4>Berry Vanilla</h4>
+            <p>Vanilla lembut dengan topping buah beri segar.</p>
+            <span>Harga bermula dari RM110</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
+          </article>
+          <article class="menu-card" data-category="birthday">
             <span class="badge">Popular</span>
             <div class="img-box birthday">
-              <img src="assets/images/R (1).jpg" alt="Kek hari jadi" />
+              <img src="assets/images/R (1).jpg" alt="Kek hari jadi" loading="lazy" decoding="async" />
             </div>
             <h4>Kek Hari Jadi</h4>
             <p>Reka bentuk comel, warna pastel, boleh custom tema.</p>
             <span>Harga bermula dari RM100</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
           </article>
-          <article class="menu-card">
+          <article class="menu-card" data-category="wedding">
             <span class="badge">Signature</span>
             <div class="img-box wedding">
-              <img src="assets/images/Motta-Riley+Wedding-599.webp" alt="Kek kahwin atau tunang" />
+              <img src="assets/images/Motta-Riley+Wedding-599.webp" alt="Kek kahwin atau tunang" loading="lazy" decoding="async" />
             </div>
             <h4>Kek Kahwin / Tunang</h4>
             <p>Elegan, minimal, sesuai untuk majlis yang intimate.</p>
             <span>Harga bermula dari RM180</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
           </article>
-          <article class="menu-card">
+          <article class="menu-card" data-category="custom">
             <span class="badge">Custom</span>
             <div class="img-box custom">
-              <img src="assets/images/OIP (1).webp" alt="Kek custom tema pilihan" />
+              <img src="assets/images/OIP (1).webp" alt="Kek custom tema pilihan" loading="lazy" decoding="async" />
             </div>
             <h4>Kek Custom</h4>
             <p>Ikut konsep sendiri, warna dan dekorasi pilihan anda.</p>
             <span>Harga bermula dari RM150</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
           </article>
-          <article class="menu-card">
+          <article class="menu-card" data-category="dessert">
             <span class="badge">New</span>
             <div class="img-box cupcake">
-              <img src="assets/images/lemon-cupcakes-blackberry-frosting-3.jpg" alt="Cupcakes dan dessert" />
+              <img src="assets/images/lemon-cupcakes-blackberry-frosting-3.jpg" alt="Cupcakes dan dessert" loading="lazy" decoding="async" />
             </div>
             <h4>Cupcakes / Dessert</h4>
             <p>Set manis, sesuai untuk gifting &amp; event kecil.</p>
             <span>Harga bermula dari RM60</span>
+            <button class="mini-order-btn" type="button">Pilih Kek Ini</button>
           </article>
         </div>
         <div class="section-cta">
-          <a class="btn" href="#order">Tempah Sekarang</a>
+          <a class="btn" href="#order">Tempah di WhatsApp</a>
           <a class="btn ghost" href="#gallery">Lihat Galeri</a>
+        </div>
+      </section>
+
+      <section id="bundle" class="bundle section">
+        <div class="section-head">
+          <h2>Pakej Jimat Majlis</h2>
+          <p>Pilihan pakej lengkap untuk mudahkan planning anda.</p>
+        </div>
+        <div class="bundle-grid">
+          <article class="bundle-card">
+            <h3>Birthday Basic</h3>
+            <p>1 Kek 1.5kg + 12 cupcakes + ucapan custom ringkas.</p>
+            <strong>RM199</strong>
+            <button class="bundle-order-btn btn" type="button" data-name="Birthday Basic" data-price="RM199">Tempah Pakej</button>
+          </article>
+          <article class="bundle-card">
+            <h3>Engagement Sweet Set</h3>
+            <p>1 Kek 2kg + 24 dessert cups + tema warna ikut majlis.</p>
+            <strong>RM329</strong>
+            <button class="bundle-order-btn btn" type="button" data-name="Engagement Sweet Set" data-price="RM329">Tempah Pakej</button>
+          </article>
+          <article class="bundle-card">
+            <h3>Corporate Event Set</h3>
+            <p>2 Kek 1kg + 50 mini cupcakes + label logo event.</p>
+            <strong>RM499</strong>
+            <button class="bundle-order-btn btn" type="button" data-name="Corporate Event Set" data-price="RM499">Tempah Pakej</button>
+          </article>
         </div>
       </section>
 
@@ -247,22 +316,41 @@
             </div>
             <div class="field">
               <label for="budget">Bajet Anggaran</label>
-              <input id="budget" name="budget" type="text" placeholder="Contoh: RM150" required />
+              <select id="budget" name="budget" required>
+                <option value="" selected disabled>Pilih bajet</option>
+                <option value="RM60 - RM100">RM60 - RM100</option>
+                <option value="RM100 - RM150">RM100 - RM150</option>
+                <option value="RM150 - RM250">RM150 - RM250</option>
+                <option value="RM250 ke atas">RM250 ke atas</option>
+              </select>
             </div>
             <div class="field full">
               <label for="notes">Nota / Keinginan khas</label>
               <textarea id="notes" name="notes" rows="3" placeholder="Tema, warna, rasa, size"></textarea>
             </div>
-            <button class="btn" type="submit">Hantar ke WhatsApp</button>
+            <button class="btn" type="submit">Tempah di WhatsApp</button>
             <p class="form-note">Kami akan balas secepat mungkin untuk sahkan design dan harga.</p>
           </form>
         </div>
+      </section>
+
+      <section id="availability" class="availability section alt">
+        <div class="section-head">
+          <h2>Semak Slot Tempahan</h2>
+          <p>Pilih tarikh untuk semakan awal slot (akan disahkan semula di WhatsApp).</p>
+        </div>
+        <div id="availabilitySlots" class="availability-grid"></div>
+        <p class="availability-note">Klik tarikh "Slot Ada" untuk auto isi tarikh di borang tempahan.</p>
       </section>
 
       <section id="testi" class="testimonials section alt">
         <div class="section-head">
           <h2>Testimoni Pelanggan</h2>
           <p>Review ringkas daripada pelanggan setia kami.</p>
+        </div>
+        <div class="testi-controls">
+          <button class="testi-nav prev" type="button" aria-label="Testimoni sebelum">←</button>
+          <button class="testi-nav next" type="button" aria-label="Testimoni seterusnya">→</button>
         </div>
         <div class="testi-grid">
           <article class="testi-card">
@@ -279,7 +367,7 @@
           </article>
         </div>
         <div class="section-cta">
-          <a class="btn" href="#order">Tempah Sekarang</a>
+          <a class="btn" href="#order">Tempah di WhatsApp</a>
           <a class="btn ghost" href="#menu">Lihat Menu Kek</a>
         </div>
       </section>
@@ -291,22 +379,22 @@
         </div>
         <div class="gallery-grid">
           <button class="gallery-item g1" type="button" data-src="assets/images/A-slice-of-cake-in-a-plate-with-the-whole-cake-in-the-background-360x540.jpg" data-alt="Kek slice istimewa">
-            <img src="assets/images/A-slice-of-cake-in-a-plate-with-the-whole-cake-in-the-background-360x540.jpg" alt="Kek slice istimewa" />
+            <img src="assets/images/A-slice-of-cake-in-a-plate-with-the-whole-cake-in-the-background-360x540.jpg" alt="Kek slice istimewa" loading="lazy" decoding="async" />
           </button>
           <button class="gallery-item g2" type="button" data-src="assets/images/2589203_sodac_cheerwine_cherry_cupcakes_160_0_0_1-ed457fbf18684053aadb01b606b82889.jpg" data-alt="Cupcakes dekorasi">
-            <img src="assets/images/2589203_sodac_cheerwine_cherry_cupcakes_160_0_0_1-ed457fbf18684053aadb01b606b82889.jpg" alt="Cupcakes dekorasi" />
+            <img src="assets/images/2589203_sodac_cheerwine_cherry_cupcakes_160_0_0_1-ed457fbf18684053aadb01b606b82889.jpg" alt="Cupcakes dekorasi" loading="lazy" decoding="async" />
           </button>
           <button class="gallery-item g3" type="button" data-src="assets/images/OIP.webp" data-alt="Kek klasik">
-            <img src="assets/images/OIP.webp" alt="Kek klasik" />
+            <img src="assets/images/OIP.webp" alt="Kek klasik" loading="lazy" decoding="async" />
           </button>
           <button class="gallery-item g4" type="button" data-src="assets/images/OIP (4).webp" data-alt="Kek buttercream pastel">
-            <img src="assets/images/OIP (4).webp" alt="Kek buttercream pastel" />
+            <img src="assets/images/OIP (4).webp" alt="Kek buttercream pastel" loading="lazy" decoding="async" />
           </button>
           <button class="gallery-item g5" type="button" data-src="assets/images/R (1).jpg" data-alt="Kek coklat">
-            <img src="assets/images/R (1).jpg" alt="Kek coklat" />
+            <img src="assets/images/R (1).jpg" alt="Kek coklat" loading="lazy" decoding="async" />
           </button>
           <button class="gallery-item g6" type="button" data-src="assets/images/Super-Easy-Mini-Cheesecake-Cupcakes.webp" data-alt="Mini cheesecake cupcakes">
-            <img src="assets/images/Super-Easy-Mini-Cheesecake-Cupcakes.webp" alt="Mini cheesecake cupcakes" />
+            <img src="assets/images/Super-Easy-Mini-Cheesecake-Cupcakes.webp" alt="Mini cheesecake cupcakes" loading="lazy" decoding="async" />
           </button>
         </div>
       </section>
@@ -316,6 +404,11 @@
           <h2>Soalan Lazim</h2>
           <p>Ringkas, jelas, dan mudah difahami sebelum anda buat tempahan.</p>
         </div>
+        <div class="faq-search-wrap">
+          <label for="faqSearch">Cari soalan</label>
+          <input id="faqSearch" type="search" placeholder="Contoh: delivery, deposit, tempah" />
+        </div>
+        <p id="faqEmptyState" class="faq-empty" hidden>Tiada soalan dijumpai. Cuba kata kunci lain.</p>
         <div class="faq-grid">
           <details class="faq-item">
             <summary>Berapa hari awal perlu tempah?</summary>
@@ -395,7 +488,7 @@
             <p>Hantar tarikh, saiz, dan tema — kami cadangkan rekaan terbaik untuk anda.</p>
           </div>
           <div class="mini-cta-actions">
-            <a class="btn" href="#order">Tempah Sekarang</a>
+            <a class="btn" href="#order">Tempah di WhatsApp</a>
             <a class="btn ghost" href="#menu">Lihat Menu Kek</a>
           </div>
         </div>
@@ -417,7 +510,40 @@
   <a class="whatsapp-float" href="https://wa.me/60123456789" aria-label="WhatsApp">
     <span>WhatsApp</span>
   </a>
+  <button class="back-to-top" type="button" aria-label="Kembali ke atas">↑</button>
+  <div class="quick-bar" aria-label="Aksi pantas">
+    <a href="#menu">Menu</a>
+    <a href="#order">Tempah</a>
+    <a href="https://wa.me/60123456789">WhatsApp</a>
+  </div>
+  <div class="sticky-order" aria-live="polite">
+    <div class="sticky-order-copy">
+      <span>Pilihan anda</span>
+      <strong id="selectedCake">Belum dipilih</strong>
+    </div>
+    <a id="stickyOrderLink" class="btn" href="#menu">Pilih Kek Dulu</a>
+  </div>
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Anys Maniz @ Homebaker",
+      "description": "Homebaker kek homemade halal di Sungai Petani.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1579, Jalan BM 3/1, Bandar Mutiara",
+        "addressLocality": "Sungai Petani",
+        "addressRegion": "Kedah",
+        "postalCode": "08000",
+        "addressCountry": "MY"
+      },
+      "telephone": "+60123456789",
+      "url": "https://instagram.com/anysmaniz.homebaker",
+      "openingHours": "Mo-Sa 10:00-19:00",
+      "priceRange": "RM60-RM250+"
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
