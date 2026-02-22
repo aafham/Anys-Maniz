@@ -1,4 +1,16 @@
-const WHATSAPP_NUMBER = "60123456789";
+const OWNER_CONTACT_SETTINGS = {
+  whatsappNumber: "60123456789",
+  whatsappDisplay: "+60 12-345 6789",
+  instagramUrl: "https://instagram.com/anysmaniz.homebaker"
+};
+
+const OWNER_ANALYTICS_SETTINGS = {
+  measurementId:
+    document.querySelector('meta[name="ga4-measurement-id"]')?.getAttribute("content") ||
+    "G-XXXXXXXXXX"
+};
+
+const WHATSAPP_NUMBER = OWNER_CONTACT_SETTINGS.whatsappNumber;
 
 // OWNER SLOT SETTINGS
 // Owner hanya perlu edit bahagian ini untuk ubah slot.
@@ -6,10 +18,10 @@ const OWNER_SLOT_SETTINGS = {
   totalDays: 12,
   startAfterDays: 3,
   fullDates: [
-    // "2026-03-05",
+    // "2026-03-05"
   ],
   limitedDates: [
-    // "2026-03-03",
+    // "2026-03-03"
   ]
 };
 
@@ -23,7 +35,40 @@ const formatDateValue = (date) => {
 const buildWhatsAppUrl = (message) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+const buildWhatsAppBaseUrl = () => `https://wa.me/${WHATSAPP_NUMBER}`;
+
+const isValidGa4Id = (id) => /^G-[A-Z0-9]+$/i.test(id) && id.toUpperCase() !== "G-XXXXXXXXXX";
+
+const loadGa4 = () => {
+  const measurementId = OWNER_ANALYTICS_SETTINGS.measurementId;
+  if (!isValidGa4Id(measurementId)) return;
+  if (window.gtag) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId);
+};
+
+const trackEvent = (eventName, params = {}) => {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: eventName, ...params });
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+};
+
+loadGa4();
+
 const orderForm = document.getElementById("orderForm");
+const orderFormStatus = document.getElementById("orderFormStatus");
 
 if (orderForm) {
   orderForm.addEventListener("submit", (event) => {
@@ -42,6 +87,16 @@ if (orderForm) {
       `\nTarikh: ${date}` +
       `\nBajet: ${budget}` +
       (notes ? `\nNota: ${notes}` : "");
+
+    if (orderFormStatus) {
+      orderFormStatus.textContent = "Membuka WhatsApp untuk hantar tempahan anda...";
+      orderFormStatus.classList.add("show");
+    }
+
+    trackEvent("order_form_submit", {
+      event_type: String(eventType || ""),
+      budget: String(budget || "")
+    });
 
     window.open(buildWhatsAppUrl(message), "_blank");
   });
@@ -82,6 +137,20 @@ navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     closeNav();
   });
+});
+
+document.querySelectorAll("[data-wa-link]").forEach((link) => {
+  if (!(link instanceof HTMLAnchorElement)) return;
+  link.href = buildWhatsAppBaseUrl();
+});
+
+document.querySelectorAll("[data-instagram-link]").forEach((link) => {
+  if (!(link instanceof HTMLAnchorElement)) return;
+  link.href = OWNER_CONTACT_SETTINGS.instagramUrl;
+});
+
+document.querySelectorAll("[data-phone-display]").forEach((item) => {
+  item.textContent = OWNER_CONTACT_SETTINGS.whatsappDisplay;
 });
 
 const topbar = document.querySelector(".topbar");
@@ -141,6 +210,7 @@ if (galleryItems.length) {
       lightboxImg.src = src;
       lightboxImg.alt = alt;
       lightbox.classList.add("open");
+      trackEvent("gallery_open", { image: alt });
     });
   });
 
@@ -204,6 +274,17 @@ if (revealTargets.length) {
   revealTargets.forEach((item) => revealObserver.observe(item));
 }
 
+document.querySelectorAll("[data-track]").forEach((item) => {
+  item.addEventListener("click", () => {
+    const eventName = item.getAttribute("data-track");
+    if (!eventName) return;
+    trackEvent(eventName, {
+      label: item.getAttribute("data-track-label") || "",
+      location: item.getAttribute("data-track-location") || ""
+    });
+  });
+});
+
 const filterButtons = document.querySelectorAll(".filter-btn");
 const menuCards = document.querySelectorAll(".menu-card");
 
@@ -225,6 +306,8 @@ if (filterButtons.length && menuCards.length) {
         const visible = filter === "all" || category.includes(filter);
         card.classList.toggle("hidden", !visible);
       });
+
+      trackEvent("menu_filter_select", { filter });
     });
   });
 }
