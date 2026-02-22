@@ -503,6 +503,10 @@ if (bundleButtons.length) {
         `Hai Anys Maniz! Saya berminat dengan pakej ${bundleName}.` +
         (bundlePrice ? `\nHarga: ${bundlePrice}` : "") +
         `\nBoleh semak slot terdekat?`;
+      trackEvent("bundle_order_click", {
+        bundle_name: bundleName,
+        bundle_price: bundlePrice
+      });
       window.open(buildWhatsAppUrl(message), "_blank");
     });
   });
