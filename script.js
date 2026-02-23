@@ -11,6 +11,26 @@ const OWNER_ANALYTICS_SETTINGS = {
 };
 
 const WHATSAPP_NUMBER = OWNER_CONTACT_SETTINGS.whatsappNumber;
+const WA_CONTEXT_MESSAGES = {
+  topbar_main:
+    "Hai Anys Maniz! Saya berminat untuk tempah kek. Boleh bantu dengan slot terdekat dan anggaran harga?",
+  hero_main:
+    "Hai Anys Maniz! Saya nampak website dan nak tempah kek. Boleh cadangkan pilihan bestseller untuk majlis saya?",
+  menu_section:
+    "Hai Anys Maniz! Saya baru lihat menu kek. Boleh bantu cadangkan pilihan ikut bajet saya?",
+  order_sidebar:
+    "Hai Anys Maniz! Saya nak semak slot tempahan terdekat untuk kek custom.",
+  testimonials_section:
+    "Hai Anys Maniz! Saya tertarik dengan review pelanggan. Boleh saya dapatkan sebut harga awal?",
+  mini_cta:
+    "Hai Anys Maniz! Saya bersedia untuk tempah kek. Boleh semak slot available minggu ini?",
+  footer_icon:
+    "Hai Anys Maniz! Saya jumpa contact WhatsApp di website. Nak tanya tempahan kek.",
+  footer_contact:
+    "Hai Anys Maniz! Saya nak tanya detail tempahan kek (harga, saiz, dan tarikh).",
+  mobile_sticky:
+    "Hai Anys Maniz! Saya nak tempah kek dengan segera. Boleh bantu semak slot paling dekat?"
+};
 
 // OWNER ORDER SETTINGS
 // Owner hanya perlu ubah leadDays untuk minimum hari tempahan.
@@ -58,6 +78,11 @@ const trackEvent = (eventName, params = {}) => {
   }
 };
 
+const getContextWhatsAppMessage = (context) => {
+  if (!context) return "";
+  return WA_CONTEXT_MESSAGES[context] || "";
+};
+
 loadGa4();
 
 const orderForm = document.getElementById("orderForm");
@@ -75,7 +100,11 @@ const summaryEvent = document.getElementById("summaryEvent");
 const summarySize = document.getElementById("summarySize");
 const summaryDate = document.getElementById("summaryDate");
 const summaryBudget = document.getElementById("summaryBudget");
+const orderNextBtn = document.getElementById("orderNextBtn");
+const orderBackBtn = document.getElementById("orderBackBtn");
+const orderStepPanels = Array.from(document.querySelectorAll("[data-form-step]"));
 const ORDER_REQUIRED_SELECTOR = "input[required], select[required], textarea[required]";
+let orderFormStep = 1;
 
 const setOrderStepState = (activeStep) => {
   orderStepCards.forEach((stepCard, index) => {
@@ -114,6 +143,7 @@ const updateOrderProgress = () => {
   const filledCount = requiredFields.filter((field) => String(field.value || "").trim() !== "").length;
   const totalCount = requiredFields.length;
   const ratio = Math.round((filledCount / totalCount) * 100);
+  const done = filledCount >= totalCount;
 
   if (orderProgressCount) {
     orderProgressCount.textContent = `${filledCount}/${totalCount} lengkap`;
@@ -124,23 +154,64 @@ const updateOrderProgress = () => {
   }
 
   if (orderProgressLabel) {
-    const done = filledCount >= totalCount;
-    orderProgressLabel.textContent = done
+    orderProgressLabel.textContent = orderFormStep === 2
+      ? "Langkah 2/2: Semak ringkasan dan tekan Tempah di WhatsApp"
+      : done
       ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
       : "Langkah 1/2: Isi maklumat wajib";
   }
 
   if (orderProgressStage) {
-    const done = filledCount >= totalCount;
-    orderProgressStage.textContent = done ? "2/2" : "1/2";
-    orderProgressStage.classList.toggle("done", done);
+    orderProgressStage.textContent = orderFormStep === 2 ? "2/2" : "1/2";
+    orderProgressStage.classList.toggle("done", done || orderFormStep === 2);
   }
 
   let flowStage = 1;
   if (filledCount >= 1) flowStage = 2;
   if (filledCount >= 3) flowStage = 3;
   if (filledCount >= totalCount) flowStage = 4;
+  if (orderFormStep === 2) flowStage = 5;
   setOrderStepState(flowStage);
+
+  if (orderNextBtn) {
+    orderNextBtn.disabled = !done;
+  }
+};
+
+const setOrderFormStep = (step) => {
+  orderFormStep = step;
+  orderStepPanels.forEach((panel) => {
+    const panelStep = Number(panel.getAttribute("data-form-step"));
+    panel.classList.toggle("is-step-hidden", panelStep !== step);
+  });
+  updateOrderProgress();
+};
+
+const validateOrderRequiredFields = (requiredFields) => {
+  let hasError = false;
+  let firstErrorField = null;
+  requiredFields.forEach((field) => {
+    const isEmpty = String(field.value || "").trim() === "";
+    field.classList.toggle("field-error", isEmpty);
+    if (isEmpty) {
+      hasError = true;
+      if (!firstErrorField) firstErrorField = field;
+    }
+  });
+
+  if (hasError) {
+    if (orderFormStatus) {
+      orderFormStatus.textContent = "Sila lengkapkan maklumat wajib dulu.";
+      orderFormStatus.classList.add("show", "error");
+      orderFormStatus.classList.remove("success");
+    }
+    if (firstErrorField) {
+      firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstErrorField.focus({ preventScroll: true });
+    }
+  }
+
+  return !hasError;
 };
 
 if (orderForm) {
@@ -207,36 +278,41 @@ if (orderForm) {
     });
   });
 
+  if (orderNextBtn) {
+    orderNextBtn.addEventListener("click", () => {
+      if (!validateOrderRequiredFields(requiredFields)) {
+        updateOrderProgress();
+        return;
+      }
+      if (orderFormStatus) orderFormStatus.classList.remove("show", "error", "success");
+      setOrderFormStep(2);
+      window.setTimeout(() => {
+        summaryName?.focus?.();
+      }, 50);
+    });
+  }
+
+  if (orderBackBtn) {
+    orderBackBtn.addEventListener("click", () => {
+      setOrderFormStep(1);
+      if (orderFormStatus) orderFormStatus.classList.remove("show", "error", "success");
+    });
+  }
+
+  setOrderFormStep(1);
   updateOrderSummary();
   updateOrderProgress();
 
   orderForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let hasError = false;
-    let firstErrorField = null;
-    requiredFields.forEach((field) => {
-      const isEmpty = String(field.value || "").trim() === "";
-      field.classList.toggle("field-error", isEmpty);
-      if (isEmpty) {
-        hasError = true;
-        if (!firstErrorField) firstErrorField = field;
-      }
-    });
-
-    if (hasError) {
-      if (orderFormStatus) {
-        orderFormStatus.textContent = "Sila lengkapkan maklumat wajib dulu.";
-        orderFormStatus.classList.add("show", "error");
-        orderFormStatus.classList.remove("success");
-      }
-      if (firstErrorField) {
-        firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
-        firstErrorField.focus({ preventScroll: true });
-      }
+    if (!validateOrderRequiredFields(requiredFields)) {
+      setOrderFormStep(1);
       updateOrderProgress();
       return;
     }
+
+    setOrderFormStep(2);
 
     const data = new FormData(orderForm);
     const name = data.get("name");
@@ -322,7 +398,11 @@ navLinks.forEach((link) => {
 
 document.querySelectorAll('a[href*="wa.me"], [data-wa-link]').forEach((link) => {
   if (!(link instanceof HTMLAnchorElement)) return;
-  link.href = buildWhatsAppBaseUrl();
+  const context = link.getAttribute("data-wa-context") || "";
+  const message = getContextWhatsAppMessage(context);
+  link.href = message ? buildWhatsAppUrl(message) : buildWhatsAppBaseUrl();
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
 });
 
 document.querySelectorAll('a[href*="instagram.com"], [data-instagram-link]').forEach((link) => {
@@ -387,25 +467,44 @@ const galleryItems = document.querySelectorAll(".gallery-item");
 if (galleryItems.length) {
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightbox.setAttribute("aria-label", "Paparan imej galeri");
   lightbox.innerHTML = `
-    <button class="lightbox-close" aria-label="Tutup">x</button>
+    <button class="lightbox-close" aria-label="Tutup">&times;</button>
     <img src="" alt="" />
   `;
   document.body.appendChild(lightbox);
 
   const lightboxImg = lightbox.querySelector("img");
   const closeBtn = lightbox.querySelector(".lightbox-close");
+  let lastFocusedElement = null;
 
-  const closeLightbox = () => lightbox.classList.remove("open");
+  const getLightboxFocusables = () =>
+    Array.from(lightbox.querySelectorAll("button, [href], [tabindex]:not([tabindex='-1'])")).filter(
+      (item) => item instanceof HTMLElement && !item.hasAttribute("disabled")
+    );
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    if (lastFocusedElement instanceof HTMLElement) {
+      lastFocusedElement.focus();
+    }
+  };
 
   galleryItems.forEach((item) => {
     item.addEventListener("click", () => {
       const src = item.getAttribute("data-src");
       const alt = item.getAttribute("data-alt") || "Galeri kek";
       if (!src || !lightboxImg) return;
+      lastFocusedElement = item instanceof HTMLElement ? item : null;
       lightboxImg.src = src;
       lightboxImg.alt = alt;
       lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      if (closeBtn instanceof HTMLElement) closeBtn.focus();
       trackEvent("gallery_open", { image: alt });
     });
   });
@@ -419,7 +518,30 @@ if (galleryItems.length) {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeLightbox();
+    if (!lightbox.classList.contains("open")) return;
+    if (event.key === "Escape") {
+      closeLightbox();
+      return;
+    }
+    if (event.key !== "Tab") return;
+
+    const focusables = getLightboxFocusables();
+    if (!focusables.length) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (!(first instanceof HTMLElement) || !(last instanceof HTMLElement)) return;
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 }
 
