@@ -528,10 +528,10 @@ const updateMobileStickyCtaVisibility = () => {
   }
 
   const currentY = window.scrollY;
-  const scrollingDown = currentY > lastScrollY + 4;
-  const nearTop = currentY < 120;
+  const scrollingDown = currentY > lastScrollY + 10;
+  const nearTop = currentY < 140;
   const nearBottom =
-    document.documentElement.scrollHeight - (currentY + window.innerHeight) < 180;
+    document.documentElement.scrollHeight - (currentY + window.innerHeight) < 260;
   const shouldHide = scrollingDown && !nearTop && !nearBottom;
   mobileStickyCta.classList.toggle("is-hidden", shouldHide);
   lastScrollY = currentY;
