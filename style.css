@@ -6090,3 +6090,68 @@ h4,
     padding: 5px;
   }
 }
+
+/* Mobile overflow hotfix v42 */
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .page,
+  main,
+  main > .section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .hero,
+  .about,
+  #order .order-layout,
+  #contact .contact-wide,
+  .promo-inner,
+  .proof-strip,
+  #menu .menu-grid,
+  #bundle .bundle-grid,
+  .testi-grid,
+  #gallery .gallery-grid,
+  #faq .faq-grid,
+  .footer-main {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .hero-copy,
+  .hero-visual,
+  .about-copy,
+  .about-visual,
+  #contact .contact-info,
+  #contact .map-panel {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-self: stretch !important;
+  }
+
+  .hero-media,
+  .hero-card,
+  .photo-frame,
+  #contact .map-panel,
+  #contact .map-embed,
+  #contact .map-embed iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero-photo,
+  .hero-photo img,
+  #menu .img-box img,
+  #gallery .gallery-item img {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
