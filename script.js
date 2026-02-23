@@ -145,6 +145,7 @@ const orderProgressStage = document.getElementById("orderProgressStage");
 const orderProgressLabel = document.getElementById("orderProgressLabel");
 const orderProgressCount = document.getElementById("orderProgressCount");
 const orderProgressBar = document.getElementById("orderProgressBar");
+const orderProgressHint = document.getElementById("orderProgressHint");
 const orderStepCards = Array.from(document.querySelectorAll("#order .order-steps .step"));
 const orderEventInput = document.getElementById("event");
 const orderEventChips = Array.from(document.querySelectorAll(".event-chip"));
@@ -207,12 +208,30 @@ const updateOrderProgress = () => {
     orderProgressBar.style.width = `${ratio}%`;
   }
 
+  const missingLabels = requiredFields
+    .filter((field) => String(field.value || "").trim() === "")
+    .map((field) => {
+      const label = field.closest(".field")?.querySelector("label");
+      return (label?.textContent || "").trim();
+    })
+    .filter((label) => label !== "");
+
   if (orderProgressLabel) {
     orderProgressLabel.textContent = orderFormStep === 2
       ? "Langkah 2/2: Semak ringkasan dan tekan Tempah di WhatsApp"
       : done
       ? "Langkah 2/2: Semak dan tekan Tempah di WhatsApp"
       : "Langkah 1/2: Isi maklumat wajib";
+  }
+
+  if (orderProgressHint) {
+    if (orderFormStep === 2) {
+      orderProgressHint.textContent = "Semak detail ringkasan sebelum hantar tempahan.";
+    } else if (!missingLabels.length) {
+      orderProgressHint.textContent = "Semua maklumat wajib lengkap. Tekan Teruskan ke semakan.";
+    } else {
+      orderProgressHint.textContent = `Lengkapkan: ${missingLabels.slice(0, 3).join(", ")}`;
+    }
   }
 
   if (orderProgressStage) {

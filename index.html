@@ -389,7 +389,7 @@
 
         <div class="order-form">
           <div class="order-form-head">
-            <h3>Borang Tempahan Ringkas</h3>
+            <h3>Buat Tempahan Sekarang</h3>
             <p>Isi maklumat asas, kami akan terus sambung perbincangan di WhatsApp.</p>
             <div class="order-form-progress" aria-live="polite">
               <div class="order-form-progress-top">
@@ -398,6 +398,7 @@
                 <strong id="orderProgressCount">0/5 lengkap</strong>
               </div>
               <div class="order-form-progress-bar" aria-hidden="true"><span id="orderProgressBar"></span></div>
+              <small id="orderProgressHint" class="order-progress-hint">Lengkapkan: Nama, Jenis Majlis, Saiz Kek</small>
             </div>
           </div>
           <div class="order-form-layout">
@@ -432,7 +433,7 @@
               <label for="date">Tarikh diperlukan</label>
               <input id="date" name="date" type="date" lang="ms" placeholder="Pilih tarikh" aria-describedby="dateHint earliestDateHint" required />
               <small>Minimum 3 hari dari tarikh tempahan.</small>
-              <small id="dateHint">Format paparan tarikh ikut tetapan peranti anda.</small>
+              <small id="dateHint">Contoh format tarikh: 26/02/2026 (ikut tetapan peranti).</small>
               <small id="earliestDateHint">Tarikh paling awal: -</small>
               </div>
               <div class="field" data-form-step="1">
