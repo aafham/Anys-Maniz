@@ -150,6 +150,7 @@ const orderStepCards = Array.from(document.querySelectorAll("#order .order-steps
 const orderEventInput = document.getElementById("event");
 const orderEventChips = Array.from(document.querySelectorAll(".event-chip"));
 const earliestDateHint = document.getElementById("earliestDateHint");
+const selectedDateHint = document.getElementById("selectedDateHint");
 const summaryName = document.getElementById("summaryName");
 const summaryEvent = document.getElementById("summaryEvent");
 const summarySize = document.getElementById("summarySize");
@@ -545,6 +546,16 @@ if (dateInput) {
   if (earliestDateHint) {
     earliestDateHint.textContent = `Tarikh paling awal: ${formatSummaryDate(formatDateValue(minDate))}`;
   }
+  if (selectedDateHint) {
+    selectedDateHint.textContent = "Tarikh dipilih: -";
+  }
+  dateInput.addEventListener("change", () => {
+    if (!selectedDateHint) return;
+    const value = String(dateInput.value || "");
+    selectedDateHint.textContent = value
+      ? `Tarikh dipilih: ${formatSummaryDate(value)}`
+      : "Tarikh dipilih: -";
+  });
 }
 
 const galleryItems = document.querySelectorAll(".gallery-item");

@@ -4787,3 +4787,208 @@ body {
   border-color: rgba(93, 64, 54, 0.65);
   box-shadow: 0 0 0 4px rgba(111, 81, 70, 0.22);
 }
+
+/* Order readability pass v32 */
+#order .order-progress-hint {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4f3a34;
+  line-height: 1.5;
+}
+
+#order #dateHint,
+#order #selectedDateHint,
+#order #earliestDateHint {
+  line-height: 1.4;
+}
+
+#order #dateHint {
+  font-size: 13px;
+  color: #5a443d;
+}
+
+#order #selectedDateHint {
+  font-size: 13px;
+  color: #4d3933;
+  font-weight: 600;
+}
+
+#order #earliestDateHint {
+  font-size: 12px;
+  color: #6a544e;
+}
+
+#order .event-chip.is-custom {
+  border-width: 1.5px;
+  border-color: rgba(93, 64, 54, 0.55);
+  color: #4b3731;
+}
+
+#order .event-chip.is-custom.is-active {
+  border-width: 1.5px;
+}
+
+#order #orderForm {
+  row-gap: 10px;
+}
+
+#order .order-form-actions-step1 {
+  margin-top: 2px;
+}
+
+#order .field[data-form-step="1"]:last-of-type {
+  margin-bottom: 2px;
+}
+
+#order .step p {
+  font-size: 15px;
+}
+
+@media (max-width: 900px) {
+  #order .order-progress-hint {
+    font-size: 13px;
+  }
+
+  #order #dateHint,
+  #order #selectedDateHint,
+  #order #earliestDateHint {
+    font-size: 12px;
+  }
+}
+
+/* Global section rhythm pass v33 */
+.page {
+  --ui-section-gap-desktop: 18px;
+  --ui-section-gap-mobile: 14px;
+  --ui-section-pad-y-desktop: 40px;
+  --ui-section-pad-x-desktop: 26px;
+  --ui-section-pad-y-mobile: 24px;
+  --ui-section-pad-x-mobile: 14px;
+}
+
+main {
+  display: grid;
+  gap: var(--ui-section-gap-desktop);
+}
+
+main > .section {
+  margin: 0;
+  padding: var(--ui-section-pad-y-desktop) var(--ui-section-pad-x-desktop);
+}
+
+main > .section .section-head {
+  margin-bottom: 20px;
+}
+
+main > .section .section-cta {
+  margin-top: 20px;
+}
+
+main > #order.section,
+main > #faq.section,
+main > #contact.section,
+main > .mini-cta {
+  margin-top: 0;
+}
+
+main > .promo-strip.section {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+main > .proof-strip.section {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+main > #gallery.section {
+  padding-bottom: calc(var(--ui-section-pad-y-desktop) - 4px);
+}
+
+main > .mini-cta {
+  margin-bottom: 26px;
+}
+
+@media (max-width: 900px) {
+  main {
+    gap: 16px;
+  }
+
+  main > .section {
+    padding: 28px 16px;
+  }
+
+  main > .section .section-head {
+    margin-bottom: 16px;
+  }
+
+  main > .section .section-cta {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    gap: var(--ui-section-gap-mobile);
+  }
+
+  main > .section {
+    padding: var(--ui-section-pad-y-mobile) var(--ui-section-pad-x-mobile);
+  }
+
+  main > .promo-strip.section,
+  main > .proof-strip.section {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  main > .mini-cta {
+    margin-bottom: 18px;
+  }
+}
+
+/* Radius consistency pass v34 */
+#order {
+  --order-radius-card: 18px;
+  --order-radius-soft: 14px;
+  --order-radius-pill: 999px;
+}
+
+#order .order-cta,
+#order .order-form,
+#order .order-note,
+#order .order-live-summary,
+#order .order-form-progress,
+#order .step {
+  border-radius: var(--order-radius-card);
+}
+
+#order #orderForm .field input,
+#order #orderForm .field textarea,
+#order #orderForm .field select,
+#order .order-form-progress-bar,
+#order .order-summary-hint {
+  border-radius: var(--order-radius-soft);
+}
+
+#order .event-chip,
+#order .order-progress-stage,
+#order .order-next-btn,
+#order .order-submit-btn,
+#order .order-back-btn,
+#order .order-cta .btn {
+  border-radius: var(--order-radius-pill);
+}
+
+#order .step-num,
+#order .order-note li::before,
+#order .order-cta-list li::before {
+  border-radius: 50%;
+}
+
+@media (max-width: 760px) {
+  #order {
+    --order-radius-card: 16px;
+    --order-radius-soft: 12px;
+  }
+}
