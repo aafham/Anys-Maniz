@@ -4471,3 +4471,319 @@ body {
     font-size: 11px;
   }
 }
+
+/* Order interface refinement v29 */
+#order .order-main {
+  gap: 12px;
+}
+
+#order .order-steps {
+  gap: 14px;
+}
+
+#order .step {
+  padding: 16px 13px;
+}
+
+#order .step h3 {
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+#order .step p {
+  line-height: 1.6;
+}
+
+#order .order-note-accordion summary {
+  justify-content: flex-start;
+  cursor: default;
+}
+
+#order .order-note-accordion summary h3 {
+  font-size: 18px;
+}
+
+#order .order-note-accordion ul {
+  margin-top: 10px;
+}
+
+#order .order-form {
+  margin-top: 12px;
+  padding-bottom: 16px;
+}
+
+#order .order-form-progress-top {
+  margin-bottom: 7px;
+}
+
+#order .order-form-progress-top strong {
+  color: #6f544b;
+  font-weight: 700;
+}
+
+#order .order-progress-hint {
+  font-size: 13px;
+  color: #5f473f;
+}
+
+#order #orderForm {
+  align-content: start;
+  row-gap: 12px;
+}
+
+#order .order-form-layout {
+  grid-template-columns: 1fr;
+}
+
+#order .order-form-layout.is-review-step {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+}
+
+#order .field {
+  gap: 7px;
+}
+
+#order #orderForm input::placeholder,
+#order #orderForm textarea::placeholder {
+  color: #97867f;
+}
+
+#order #orderForm select {
+  color: #3c2d29;
+}
+
+#order .order-cta {
+  background: #fff;
+}
+
+#order .order-cta .btn {
+  background: #fff;
+  color: #5d4036;
+  border: 1px solid rgba(111, 81, 70, 0.35);
+  box-shadow: none;
+}
+
+#order .order-cta .btn::after {
+  display: none;
+}
+
+#order .order-cta .btn:hover {
+  background: #fbeee9;
+}
+
+@media (max-width: 1100px) {
+  #order .order-form-layout,
+  #order .order-form-layout.is-review-step {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Order visual polish v30 */
+#order .order-form {
+  --of-space-1: 6px;
+  --of-space-2: 10px;
+  --of-space-3: 14px;
+  --of-space-4: 18px;
+  --of-label-size: 16px;
+  --of-helper-size: 12px;
+  --of-body-size: 15px;
+}
+
+#order .order-form-head {
+  margin-bottom: var(--of-space-3);
+}
+
+#order .order-form-head h3 {
+  font-size: clamp(40px, 3.2vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+#order .order-form-head p {
+  margin-top: var(--of-space-1);
+  font-size: var(--of-body-size);
+  line-height: 1.55;
+  max-width: 64ch;
+}
+
+#order .order-form-progress {
+  margin-top: var(--of-space-2);
+}
+
+#order .order-form-progress-top {
+  font-size: 12px;
+  margin-bottom: var(--of-space-1);
+}
+
+#order .order-progress-hint {
+  margin-top: var(--of-space-1);
+  line-height: 1.45;
+}
+
+#order #orderForm {
+  row-gap: var(--of-space-3);
+}
+
+#order .field {
+  gap: var(--of-space-1);
+}
+
+#order #orderForm .field label {
+  font-size: var(--of-label-size);
+  line-height: 1.28;
+  font-weight: 650;
+}
+
+#order #orderForm .field input,
+#order #orderForm .field textarea,
+#order #orderForm .field select {
+  min-height: 50px;
+  font-size: 16px;
+  padding: 11px 14px;
+}
+
+#order #orderForm .field textarea {
+  min-height: 120px;
+}
+
+#order #orderForm .field small {
+  font-size: var(--of-helper-size);
+  line-height: 1.4;
+}
+
+#order .event-chip-group {
+  gap: var(--of-space-2);
+  margin-bottom: var(--of-space-2);
+}
+
+#order .event-chip {
+  min-height: 34px;
+  padding: 7px 13px;
+  font-size: 14px;
+}
+
+#order .order-form-actions-step1 {
+  margin-top: var(--of-space-2);
+}
+
+#order .order-form-actions-step1 .order-next-btn {
+  min-height: 50px;
+  font-size: 17px;
+}
+
+#order .order-note h3,
+#order .order-cta-copy h3 {
+  letter-spacing: -0.01em;
+}
+
+#order .order-note li,
+#order .order-cta-list li {
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  #order .order-form {
+    --of-label-size: 15px;
+    --of-helper-size: 11px;
+    --of-body-size: 14px;
+  }
+
+  #order .order-form-head h3 {
+    font-size: clamp(30px, 8vw, 38px);
+    line-height: 1.08;
+  }
+
+  #order #orderForm .field input,
+  #order #orderForm .field textarea,
+  #order #orderForm .field select {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 10px 13px;
+  }
+
+  #order .order-form-actions-step1 .order-next-btn {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  #order .order-form-head h3 {
+    font-size: clamp(28px, 7.4vw, 34px);
+  }
+}
+
+/* Order accessibility contrast pass v31 */
+#order .order-form {
+  border-color: rgba(93, 64, 54, 0.22);
+}
+
+#order #orderForm .field input,
+#order #orderForm .field textarea,
+#order #orderForm .field select {
+  border-color: rgba(93, 64, 54, 0.38);
+  color: #2f2522;
+}
+
+#order #orderForm input::placeholder,
+#order #orderForm textarea::placeholder {
+  color: #7a6660;
+}
+
+#order #orderForm .field label {
+  color: #2f2522;
+}
+
+#order #orderForm .field small,
+#order #dateHint,
+#order #earliestDateHint,
+#order .order-progress-hint,
+#order .order-response-time,
+#order .order-summary-hint {
+  color: #5f473f;
+}
+
+#order .order-form-progress {
+  border-color: rgba(93, 64, 54, 0.3);
+  background: #fff9f7;
+}
+
+#order .order-form-progress-top,
+#order .order-form-progress-top strong,
+#order #orderProgressLabel,
+#order #orderProgressCount {
+  color: #4d3933;
+}
+
+#order .order-form-progress-bar {
+  background: #e3d4cc;
+}
+
+#order .event-chip {
+  border-color: rgba(93, 64, 54, 0.42);
+  color: #4f3a34;
+}
+
+#order .event-chip.is-custom {
+  color: #5b443d;
+  border-color: rgba(93, 64, 54, 0.4);
+}
+
+#order .order-note,
+#order .order-live-summary {
+  border-color: rgba(93, 64, 54, 0.24);
+}
+
+#order .order-note li,
+#order .order-cta-list li,
+#order .order-note p,
+#order .order-cta-copy p {
+  color: #4f3a34;
+}
+
+#order #orderForm .field input:focus,
+#order #orderForm .field textarea:focus,
+#order #orderForm .field select:focus {
+  border-color: rgba(93, 64, 54, 0.65);
+  box-shadow: 0 0 0 4px rgba(111, 81, 70, 0.22);
+}

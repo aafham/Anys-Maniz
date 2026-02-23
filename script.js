@@ -158,6 +158,7 @@ const summaryBudget = document.getElementById("summaryBudget");
 const orderNextBtn = document.getElementById("orderNextBtn");
 const orderBackBtn = document.getElementById("orderBackBtn");
 const orderStepPanels = Array.from(document.querySelectorAll("[data-form-step]"));
+const orderFormLayout = document.querySelector("#order .order-form-layout");
 const ORDER_REQUIRED_SELECTOR = "input[required], select[required], textarea[required]";
 let orderFormStep = 1;
 
@@ -257,6 +258,9 @@ const setOrderFormStep = (step) => {
     const panelStep = Number(panel.getAttribute("data-form-step"));
     panel.classList.toggle("is-step-hidden", panelStep !== step);
   });
+  if (orderFormLayout) {
+    orderFormLayout.classList.toggle("is-review-step", step === 2);
+  }
   updateOrderProgress();
 };
 

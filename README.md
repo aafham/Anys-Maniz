@@ -16,13 +16,19 @@ Website ini fokus untuk:
 - Hero, About, Menu, Pakej, Tempahan, FAQ, Testimoni, Galeri, Contact
 - Penapis kategori menu kek
 - Borang tempahan pintar:
-  - progress `1/2` -> `2/2`
+  - tajuk borang: `Buat Tempahan Sekarang`
+  - wizard `2-step` (isi maklumat -> semak + hantar)
+  - progress `1/2` -> `2/2` + hint dinamik field belum lengkap
   - quick chips untuk `Jenis Majlis`
+  - chip `Lain-lain` sebagai pilihan custom
   - field wajib `Saiz Kek`
   - helper tarikh minimum automatik (`leadDays`)
   - validasi kosong + auto scroll ke field error pertama
   - ringkasan tempahan live
   - mesej auto-generate ke WhatsApp
+  - link WhatsApp kontekstual ikut lokasi CTA
+  - polish UI desktop/mobile (spacing, hierarchy, readability)
+  - kemasan accessibility visual (focus ring dan kontras teks/border)
 - FAQ:
   - buka/tutup (collapse)
   - carian soalan (search keyword)
@@ -161,6 +167,16 @@ Maksud:
   - Jenis majlis
   - Saiz kek
   - Bajet
+
+## Perubahan Terkini (UI Tempahan)
+
+- Borang ditukar kepada `Buat Tempahan Sekarang`.
+- Layout `step 1` di desktop dioptimumkan untuk elak ruang kosong.
+- Progress bar tambah hint dinamik (`Lengkapkan: ...`).
+- `Nota Penting` dibersihkan (ikon close dibuang).
+- Hierarki chip + helper text dikemas untuk kebolehbacaan.
+- Kontras elemen borang dipertingkat (AA-oriented visual pass).
+- Mobile overlap issue dikurangkan dengan pelarasan topbar/scroll offset.
 
 ## Event Tracking Yang Direkod
 
