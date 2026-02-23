@@ -11,25 +11,52 @@ const OWNER_ANALYTICS_SETTINGS = {
 };
 
 const WHATSAPP_NUMBER = OWNER_CONTACT_SETTINGS.whatsappNumber;
-const WA_CONTEXT_MESSAGES = {
-  topbar_main:
-    "Hai Anys Maniz! Saya berminat untuk tempah kek. Boleh bantu dengan slot terdekat dan anggaran harga?",
-  hero_main:
-    "Hai Anys Maniz! Saya nampak website dan nak tempah kek. Boleh cadangkan pilihan bestseller untuk majlis saya?",
-  menu_section:
-    "Hai Anys Maniz! Saya baru lihat menu kek. Boleh bantu cadangkan pilihan ikut bajet saya?",
-  order_sidebar:
-    "Hai Anys Maniz! Saya nak semak slot tempahan terdekat untuk kek custom.",
-  testimonials_section:
-    "Hai Anys Maniz! Saya tertarik dengan review pelanggan. Boleh saya dapatkan sebut harga awal?",
-  mini_cta:
-    "Hai Anys Maniz! Saya bersedia untuk tempah kek. Boleh semak slot available minggu ini?",
-  footer_icon:
-    "Hai Anys Maniz! Saya jumpa contact WhatsApp di website. Nak tanya tempahan kek.",
-  footer_contact:
-    "Hai Anys Maniz! Saya nak tanya detail tempahan kek (harga, saiz, dan tarikh).",
-  mobile_sticky:
-    "Hai Anys Maniz! Saya nak tempah kek dengan segera. Boleh bantu semak slot paling dekat?"
+const OWNER_WHATSAPP_SETTINGS = {
+  // Pilihan: "consultative" atau "direct"
+  tonePreset: "consultative"
+};
+
+const WA_TONE_PRESETS = {
+  consultative: {
+    topbar_main:
+      "Hai Anys Maniz, saya berminat nak tempah kek.\nBoleh semak slot terdekat dan anggaran harga?",
+    hero_main:
+      "Hai Anys Maniz, saya nampak website dan nak tempah kek.\nBoleh cadangkan pilihan bestseller ikut bajet saya?",
+    menu_section:
+      "Hai Anys Maniz, saya baru tengok menu kek.\nBoleh bantu cadangkan yang sesuai ikut bajet dan saiz?",
+    order_sidebar:
+      "Hai Anys Maniz, saya nak semak slot tempahan.\nTarikh saya fleksibel, boleh cadangkan slot paling dekat?",
+    testimonials_section:
+      "Hai Anys Maniz, saya tertarik dengan review pelanggan.\nBoleh bagi sebut harga awal untuk kek custom?",
+    mini_cta:
+      "Hai Anys Maniz, saya ready untuk tempah kek.\nSaya kongsi detail ringkas di bawah:",
+    footer_icon:
+      "Hai Anys Maniz, saya jumpa WhatsApp dari website.\nNak tanya tempahan kek untuk majlis.",
+    footer_contact:
+      "Hai Anys Maniz, boleh bantu saya dengan detail tempahan?\nSaya nak semak harga, saiz, dan tarikh sesuai.",
+    mobile_sticky:
+      "Hai Anys Maniz, saya nak tempah kek secepat mungkin.\nBoleh semak slot available paling awal?"
+  },
+  direct: {
+    topbar_main:
+      "Hai Anys Maniz, saya nak tempah kek.\nBoleh confirm slot paling awal dan anggaran harga?",
+    hero_main:
+      "Hai Anys Maniz, saya nak order kek hari ini.\nBoleh suggest pilihan paling popular ikut bajet?",
+    menu_section:
+      "Hai Anys Maniz, saya dah tengok menu.\nSaya nak terus pilih kek ikut bajet, boleh bantu?",
+    order_sidebar:
+      "Hai Anys Maniz, saya nak lock slot tempahan.\nBoleh semak tarikh terdekat yang available?",
+    testimonials_section:
+      "Hai Anys Maniz, saya nak sebut harga awal untuk kek custom.\nBoleh terus share range harga?",
+    mini_cta:
+      "Hai Anys Maniz, saya nak tempah sekarang.\nDetail saya seperti di bawah:",
+    footer_icon:
+      "Hai Anys Maniz, saya nak tanya tempahan kek untuk majlis saya.",
+    footer_contact:
+      "Hai Anys Maniz, saya perlukan detail harga, saiz, dan tarikh tempahan.",
+    mobile_sticky:
+      "Hai Anys Maniz, saya perlukan slot tempahan paling cepat.\nBoleh bantu semak sekarang?"
+  }
 };
 
 // OWNER ORDER SETTINGS
@@ -78,9 +105,36 @@ const trackEvent = (eventName, params = {}) => {
   }
 };
 
+const getActiveWhatsAppTonePreset = () =>
+  OWNER_WHATSAPP_SETTINGS.tonePreset in WA_TONE_PRESETS
+    ? OWNER_WHATSAPP_SETTINGS.tonePreset
+    : "consultative";
+
 const getContextWhatsAppMessage = (context) => {
   if (!context) return "";
-  return WA_CONTEXT_MESSAGES[context] || "";
+  const presetKey = getActiveWhatsAppTonePreset();
+  const preset = WA_TONE_PRESETS[presetKey];
+  const coreMessage = preset?.[context] || WA_TONE_PRESETS.consultative[context] || "";
+  if (!coreMessage) return "";
+  if (context === "mini_cta" || context === "mobile_sticky") {
+    return `${coreMessage}\n- Tarikh majlis:\n- Jenis majlis:\n- Saiz kek:\n- Bajet:`;
+  }
+  return coreMessage;
+};
+
+const buildOrderWhatsAppMessage = ({ name, eventType, size, date, budget, notes }) => {
+  const summaryDate = formatSummaryDate(String(date || ""));
+  return [
+    "Hai Anys Maniz! Saya nak tempah kek.",
+    `Nama: ${name || "-"}`,
+    `Jenis majlis: ${eventType || "-"}`,
+    `Saiz kek: ${size || "-"}`,
+    `Tarikh diperlukan: ${summaryDate}`,
+    `Bajet: ${budget || "-"}`,
+    notes ? `Nota: ${notes}` : ""
+  ]
+    .filter(Boolean)
+    .join("\n");
 };
 
 loadGa4();
@@ -322,13 +376,14 @@ if (orderForm) {
     const budget = data.get("budget");
     const notes = data.get("notes");
 
-    const message =
-      `Hai Anys Maniz! Saya ${name}.` +
-      `\nJenis majlis: ${eventType}` +
-      `\nSaiz kek: ${size}` +
-      `\nTarikh: ${date}` +
-      `\nBajet: ${budget}` +
-      (notes ? `\nNota: ${notes}` : "");
+    const message = buildOrderWhatsAppMessage({
+      name: String(name || ""),
+      eventType: String(eventType || ""),
+      size: String(size || ""),
+      date: String(date || ""),
+      budget: String(budget || ""),
+      notes: String(notes || "")
+    });
 
     if (orderFormStatus) {
       orderFormStatus.textContent = "Berjaya! Kami buka WhatsApp sekarang...";
@@ -418,11 +473,17 @@ document.querySelectorAll('a[href*="wa.me"], a[href="#order"]').forEach((link) =
   if (!(link instanceof HTMLAnchorElement)) return;
   link.addEventListener("click", () => {
     const sectionId = link.closest("section[id]")?.getAttribute("id") || "global";
-    const eventName = link.href.includes("wa.me") ? "whatsapp_click" : "cta_to_order_click";
-    trackEvent(eventName, {
+    const isWhatsAppClick = link.href.includes("wa.me");
+    const eventName = isWhatsAppClick ? "whatsapp_click" : "cta_to_order_click";
+    const eventParams = {
       location: sectionId,
       label: (link.textContent || "").trim()
-    });
+    };
+    if (isWhatsAppClick) {
+      eventParams.tone_preset = getActiveWhatsAppTonePreset();
+      eventParams.wa_context = link.getAttribute("data-wa-context") || "unspecified";
+    }
+    trackEvent(eventName, eventParams);
   });
 });
 

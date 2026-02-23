@@ -134,9 +134,38 @@ Edit meta tag di `index.html`:
 
 Ganti dengan ID sebenar, contoh `G-ABC123XYZ9`.
 
+### 4) Copy mesej WhatsApp ikut section + tone
+
+Tetapkan gaya ayat di atas `script.js`:
+
+```js
+const OWNER_WHATSAPP_SETTINGS = {
+  tonePreset: "consultative" // atau "direct"
+};
+```
+
+Edit di atas `script.js`:
+
+```js
+const WA_TONE_PRESETS = {
+  consultative: { ... },
+  direct: { ... }
+};
+```
+
+Maksud:
+- setiap CTA WhatsApp guna ayat pembuka berbeza ikut lokasi butang
+- owner boleh tukar tone keseluruhan tanpa ubah setiap CTA satu persatu
+- `mini_cta` dan `mobile_sticky` auto tambah template ringkas:
+  - Tarikh majlis
+  - Jenis majlis
+  - Saiz kek
+  - Bajet
+
 ## Event Tracking Yang Direkod
 
 - `whatsapp_click`
+  - parameter tambahan: `tone_preset`, `wa_context`, `location`, `label`
 - `cta_to_order_click`
 - `order_form_submit`
 - `menu_filter_select`
@@ -144,6 +173,62 @@ Ganti dengan ID sebenar, contoh `G-ABC123XYZ9`.
 - `bundle_order_click`
 - `gallery_open`
 - `testimonial_nav_click`
+
+## Setup Report GA4 (A/B Tone WhatsApp)
+
+Gunakan langkah ini dalam GA4 untuk banding prestasi `consultative` vs `direct`.
+
+### 1) Daftar custom dimensions (Event scope)
+
+Pergi ke:
+`Admin > Data display > Custom definitions > Create custom dimensions`
+
+Buat dimensi berikut:
+1. `tone_preset` (Event parameter: `tone_preset`)
+2. `wa_context` (Event parameter: `wa_context`)
+3. `location` (Event parameter: `location`)
+
+Nota:
+- Tunggu sehingga 24 jam untuk data baru muncul dalam report standard.
+- Event lama sebelum dimensi didaftarkan tidak akan diisi semula.
+
+### 2) Bina Exploration report
+
+Pergi ke:
+`Explore > Free form`
+
+Tambah dimensions:
+1. `tone_preset`
+2. `wa_context`
+3. `Event name`
+
+Tambah metrics:
+1. `Event count`
+2. `Total users`
+
+Letak filters:
+1. `Event name exactly matches whatsapp_click`
+2. (Opsyenal) `wa_context does not exactly match unspecified`
+
+Susun table:
+1. Rows: `tone_preset`, `wa_context`
+2. Values: `Event count`, `Total users`
+
+### 3) Bina Funnel ringkas (klik ke submit)
+
+Pergi ke:
+`Explore > Funnel exploration`
+
+Buat steps:
+1. `Event name = whatsapp_click`
+2. `Event name = order_form_submit`
+
+Tambah breakdown:
+1. `tone_preset`
+
+Tujuan:
+- nampak tone mana lebih banyak klik
+- nampak tone mana lebih ramai user bergerak ke submit borang
 
 ## Rutin Update Mingguan (Disyorkan)
 
