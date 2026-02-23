@@ -430,8 +430,9 @@
               </div>
               <div class="field" data-form-step="1">
               <label for="date">Tarikh diperlukan</label>
-              <input id="date" name="date" type="date" required />
+              <input id="date" name="date" type="date" lang="ms" placeholder="Pilih tarikh" aria-describedby="dateHint earliestDateHint" required />
               <small>Minimum 3 hari dari tarikh tempahan.</small>
+              <small id="dateHint">Format paparan tarikh ikut tetapan peranti anda.</small>
               <small id="earliestDateHint">Tarikh paling awal: -</small>
               </div>
               <div class="field" data-form-step="1">
@@ -448,7 +449,7 @@
               <label for="notes">Nota / Keinginan khas</label>
               <textarea id="notes" name="notes" rows="3" placeholder="Tema, warna, rasa, size"></textarea>
               </div>
-              <div class="order-form-actions full" data-form-step="1">
+              <div class="order-form-actions order-form-actions-step1" data-form-step="1">
                 <button id="orderNextBtn" class="btn order-next-btn" type="button">Teruskan ke semakan</button>
               </div>
               <div class="order-form-actions full" data-form-step="2">

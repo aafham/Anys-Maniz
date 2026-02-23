@@ -4251,3 +4251,92 @@ body {
     padding: 4px 8px;
   }
 }
+
+/* Order form polish v27 (desktop web view) */
+#order .order-form {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#order .order-form-progress {
+  background: #fffaf8;
+  border-color: rgba(111, 81, 70, 0.22);
+}
+
+#order .order-form-progress-top {
+  align-items: center;
+}
+
+#order .order-form-progress-top strong {
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: #7a5f55;
+}
+
+#order .order-progress-stage {
+  background: #fff;
+  border-color: rgba(111, 81, 70, 0.3);
+  color: #493732;
+}
+
+#order .order-form-progress-bar {
+  background: #eaded8;
+  height: 9px;
+}
+
+#order .order-form-progress-bar span {
+  background: linear-gradient(90deg, #6f5146 0%, #8f685d 45%, #b17f73 100%);
+}
+
+#order #orderForm .field input,
+#order #orderForm .field textarea,
+#order #orderForm .field select {
+  border-color: rgba(93, 64, 54, 0.3);
+}
+
+#order #orderForm .field input:focus,
+#order #orderForm .field textarea:focus,
+#order #orderForm .field select:focus {
+  border-color: rgba(93, 64, 54, 0.55);
+  box-shadow: 0 0 0 4px rgba(111, 81, 70, 0.18);
+}
+
+#order .event-chip {
+  background: #fff;
+  border-color: rgba(111, 81, 70, 0.32);
+  color: #5d4036;
+}
+
+#order .event-chip.is-active {
+  background: linear-gradient(120deg, #5f4339 0%, #7b584d 55%, #5f4339 100%);
+  border-color: rgba(93, 64, 54, 0.75);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(93, 64, 54, 0.22);
+}
+
+#order #dateHint,
+#order #earliestDateHint {
+  color: #705953;
+}
+
+#order .order-form-actions-step1 {
+  grid-column: 2 / 3;
+  margin-top: 10px;
+}
+
+#order .order-form-actions-step1 .order-next-btn {
+  width: 100%;
+  min-height: 46px;
+}
+
+#order .order-form-actions-step1 .order-next-btn:not(:disabled) {
+  box-shadow: 0 12px 24px rgba(93, 64, 54, 0.22);
+}
+
+@media (max-width: 760px) {
+  #order .order-form-actions-step1 {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+}
