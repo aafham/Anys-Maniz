@@ -5821,3 +5821,93 @@ h4,
     display: none;
   }
 }
+/* Mobile refinement pass v40 */
+@media (max-width: 760px) {
+  .hero.section {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 10.2vw, 44px);
+    max-width: 11ch;
+  }
+
+  .hero-media {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .hero-photo {
+    border-radius: 14px;
+  }
+
+  #order #dateHint {
+    font-size: 12px;
+    line-height: 1.32;
+  }
+
+  #order #earliestDateHint {
+    font-size: 12px;
+    line-height: 1.32;
+    font-weight: 600;
+  }
+
+  #faq .faq-item summary {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  #faq .faq-item summary::after {
+    content: '+';
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(111, 81, 70, 0.24);
+    display: inline-grid;
+    place-items: center;
+    font-size: 14px;
+    color: #6d4f44;
+    background: #fffaf8;
+    flex: 0 0 auto;
+  }
+
+  #faq .faq-item[open] summary::after {
+    content: '-';
+  }
+
+  .footer-contact,
+  .footer-links-grid a {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 6px 8px;
+  }
+
+  .footer-contact-list .icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .footer-bottom p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .mobile-sticky-cta {
+    transition: transform 0.22s ease, opacity 0.22s ease;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-sticky-cta.is-hidden {
+    transform: translateY(calc(100% + 10px));
+    opacity: 0;
+    pointer-events: none;
+  }
+}

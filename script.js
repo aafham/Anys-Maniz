@@ -151,6 +151,7 @@ const orderEventInput = document.getElementById("event");
 const orderEventChips = Array.from(document.querySelectorAll(".event-chip"));
 const earliestDateHint = document.getElementById("earliestDateHint");
 const selectedDateHint = document.getElementById("selectedDateHint");
+const dateHint = document.getElementById("dateHint");
 const summaryName = document.getElementById("summaryName");
 const summaryEvent = document.getElementById("summaryEvent");
 const summarySize = document.getElementById("summarySize");
@@ -514,6 +515,27 @@ document.querySelectorAll('a[href*="wa.me"], a[href="#order"]').forEach((link) =
 const topbar = document.querySelector(".topbar");
 const backToTopButton = document.querySelector(".back-to-top");
 const progressBar = document.querySelector(".scroll-progress span");
+const mobileStickyCta = document.querySelector(".mobile-sticky-cta");
+let lastScrollY = window.scrollY;
+
+const updateMobileStickyCtaVisibility = () => {
+  if (!mobileStickyCta) return;
+  const isMobile = window.matchMedia("(max-width: 760px)").matches;
+  if (!isMobile) {
+    mobileStickyCta.classList.remove("is-hidden");
+    lastScrollY = window.scrollY;
+    return;
+  }
+
+  const currentY = window.scrollY;
+  const scrollingDown = currentY > lastScrollY + 4;
+  const nearTop = currentY < 120;
+  const nearBottom =
+    document.documentElement.scrollHeight - (currentY + window.innerHeight) < 180;
+  const shouldHide = scrollingDown && !nearTop && !nearBottom;
+  mobileStickyCta.classList.toggle("is-hidden", shouldHide);
+  lastScrollY = currentY;
+};
 
 if (topbar) {
   const onScroll = () => {
@@ -526,9 +548,11 @@ if (topbar) {
       const ratio = total > 0 ? (window.scrollY / total) * 100 : 0;
       progressBar.style.width = `${Math.min(Math.max(ratio, 0), 100)}%`;
     }
+    updateMobileStickyCtaVisibility();
   };
 
   window.addEventListener("scroll", onScroll);
+  window.addEventListener("resize", updateMobileStickyCtaVisibility);
   onScroll();
 }
 
@@ -542,6 +566,14 @@ const dateInput = document.getElementById("date");
 if (dateInput) {
   const minDate = new Date();
   minDate.setDate(minDate.getDate() + OWNER_ORDER_SETTINGS.leadDays);
+  const updateDateHintByViewport = () => {
+    if (!dateHint) return;
+    const compact = window.matchMedia("(max-width: 760px)").matches;
+    dateHint.textContent = compact
+      ? `Minimum ${OWNER_ORDER_SETTINGS.leadDays} hari. Format: 26/02/2026.`
+      : `Minimum tempahan ${OWNER_ORDER_SETTINGS.leadDays} hari lebih awal. Contoh format: 26/02/2026.`;
+  };
+
   dateInput.min = formatDateValue(minDate);
   if (earliestDateHint) {
     earliestDateHint.textContent = `Tarikh paling awal: ${formatSummaryDate(formatDateValue(minDate))}`;
@@ -549,6 +581,8 @@ if (dateInput) {
   if (selectedDateHint) {
     selectedDateHint.textContent = "Tarikh dipilih: -";
   }
+  updateDateHintByViewport();
+  window.addEventListener("resize", updateDateHintByViewport);
   dateInput.addEventListener("change", () => {
     if (!selectedDateHint) return;
     const value = String(dateInput.value || "");
